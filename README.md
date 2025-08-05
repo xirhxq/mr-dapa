@@ -26,7 +26,7 @@ pip install -e .
 To uninstall:
 
 ```bash
-pip uninstall basic-interactive-menu
+pip uninstall mr-dapa
  ```
 
 This allows you to use standard Python imports in all project files.
