@@ -59,7 +59,7 @@ class LinesComponent(BaseComponent):
                 line, = self.ax.plot(
                     value["timestamp"], value["value"], label=label
                 )
-                self.lines[self._make_label(id, value["name"])] = line
+                self.lines[self._make_label(frame['id'], value["name"])] = line
 
         self.ax.legend(loc='best')
 
@@ -69,10 +69,29 @@ class LinesComponent(BaseComponent):
     def _animation_setup(self):
         self.y_limits = self.ax.get_ylim()
         self.vline = self.ax.plot(
-            [self.runtime[self.index_range[0]], self.runtime[self.index_range[0]]],
+            [self.interpreter.time_range[0], self.interpreter.time_range[1]],
             [self.y_limits[0], self.y_limits[1]],
             'r--', alpha=0.3
         )[0]
 
-    def update(self, num):
-        pass
+    def update(self, timestamp):
+        self.vline.set_data([timestamp, timestamp], self.y_limits)
+        timespan = self.interpreter.time_range[1] - self.interpreter.time_range[0]
+        time_offset = timespan * 0.015
+        x_limits = self.ax.get_xlim()
+
+        for label, line in self.lines.items():
+            index = np.searchsorted(line.get_xdata(), timestamp)
+
+            self.markers[label].set_data([timestamp], [line.get_ydata()[index]])
+
+            if timestamp < (x_limits[0] + x_limits[1]) / 2:
+                self.value_texts[label].set_horizontalalignment('left')
+                self.value_texts[label].set_position((timestamp + time_offset, line.get_ydata()[index]))
+            else:
+                self.value_texts[label].set_horizontalalignment('right')
+                self.value_texts[label].set_position((timestamp - time_offset, line.get_ydata()[index]))
+
+            self.value_texts[label].set_text(f"{label}: {line.get_ydata()[index]:.4f}")
+
+        self.ax.legend(loc='best')

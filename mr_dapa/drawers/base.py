@@ -58,14 +58,22 @@ class BaseDrawer:
             raise ValueError(f"Component class '{class_name}' not found. ")
         return globals()[class_name]
 
-    def _save_plot(self, fig, plot_name):
+    def _make_file(self, plot_name):
         filename = self.loader.file.split('/')[-1].split('.')[0]
         folder = os.path.join(self.folder, filename + '-plots')
         if not os.path.exists(folder):
             os.makedirs(folder)
-        filename = os.path.join(folder, plot_name + '.png')
+        return os.path.join(folder, plot_name)
+
+    def _save_plot(self, fig, plot_name):
+        filename = self._make_file(plot_name) + '.png'
         fig.savefig(filename, dpi=self.DPI, bbox_inches='tight')
-        print(f"Saved plot to {filename}")
+        print(f"Plot saved to {filename}")
+
+    def _save_animation(self, ani, plot_name, fps):
+        filename = self._make_file(plot_name) + '.mp4'
+        ani.save(filename, writer='ffmpeg', fps=fps)
+        print(f"Animation saved to {filename}")
 
     def _make_filename(self, plot_list, id_list=None, grouped=False):
         filename = '-'.join([self.REGISTERED_COMPONENTS[plot_type]["filename"] for plot_type in plot_list])
