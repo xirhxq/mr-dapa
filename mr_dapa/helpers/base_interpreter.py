@@ -16,7 +16,7 @@ class BaseInterpreter:
 
     def set_id_list(self, id_list):
         self.id_list = [id for id in id_list if id in self.get_full_id_list()]
-        self._chop_id()
+        self._chop_from_origin()
 
     def get_full_time_range(self):
         timestamps = [frame["timestamp"] for frame in self.origin]
@@ -25,18 +25,18 @@ class BaseInterpreter:
     def set_first_seconds(self, first_seconds):
         full_time_range = self.get_full_time_range()
         self.time_range = full_time_range[0], min(full_time_range[1], full_time_range[0] + first_seconds)
-        self._chop_time_range()
+        self._chop_from_origin()
 
     def set_last_seconds(self, last_seconds):
         full_time_range = self.get_full_time_range()
         self.time_range = max(full_time_range[0], full_time_range[1] - last_seconds), full_time_range[1]
-        self._chop_time_range()
+        self._chop_from_origin()
 
     def set_time_range(self, time_range):
         assert time_range[0] <= time_range[1], "time_range[0] should be less than time_range[1]"
         full_time_range = self.get_full_time_range()
         self.time_range = max(time_range[0], full_time_range[0]), min(time_range[1], full_time_range[1])
-        self._chop_time_range()
+        self._chop_from_origin()
 
     def _chop_id(self):
         self.data = [frame for frame in self.data if frame["id"] in self.id_list]
@@ -47,6 +47,10 @@ class BaseInterpreter:
                 index_range = np.searchsorted(value["timestamp"], self.time_range[0]), np.searchsorted(value["timestamp"], self.time_range[1], side="right")
                 value["timestamp"] = value["timestamp"][index_range[0]:index_range[1]]
                 value["value"] = value["value"][index_range[0]:index_range[1]]
+
+    def _chop_from_origin(self):
+        self.data = [frame for frame in self.origin if frame["id"] in self.id_list]
+        self._chop_time_range()
 
     def _check_data(self):
         assert isinstance(self.data, list), f"self.data should be a list, but got {type(self.data)}"

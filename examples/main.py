@@ -6,7 +6,7 @@ components = {
         'class': 'LinesComponent',
         'keys': ['x'],
         'filename': 'x',
-        'figsize': (12, 8),
+        'figsize': (6, 6),
     },
     'y': {
         'title': 'Y Position',
@@ -148,6 +148,14 @@ def minimal_main():
     StaticGlobalPlotDrawer([file]).register_components(components).set_time_range((0.2, 0.5)).draw(['x', 'y'])
 
     StaticGlobalPlotDrawer([file]).register_components(components).set_last_seconds(2).draw(['x', 'y'])
+
+    StaticSeparatePlotDrawer([file]).register_components(components).draw(['x'])
+
+    StaticSeparatePlotDrawer([file]).register_components(components).set_first_seconds(2).draw(['x', 'y'])
+
+    StaticGroupPlotDrawer([file]).register_components(components).draw(['x', 'y'])
+
+    StaticGroupPlotDrawer([file]).register_components(components).set_time_range((0.2, 0.5)).draw(['x', 'y'])
 
 if __name__ == '__main__':
     minimal_main()

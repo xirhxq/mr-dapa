@@ -67,6 +67,8 @@ class BaseDrawer:
         fig.savefig(filename, dpi=self.DPI, bbox_inches='tight')
         print(f"Saved plot to {filename}")
 
-    def _make_filename(self, plot_list):
+    def _make_filename(self, plot_list, id_list=None, grouped=False):
         filename = '-'.join([self.REGISTERED_COMPONENTS[plot_type]["filename"] for plot_type in plot_list])
-        return filename + self.interpreter.get_filename_suffix()
+        if grouped:
+            filename += '-grouped'
+        return filename + self.interpreter.get_filename_suffix(id_list=id_list)

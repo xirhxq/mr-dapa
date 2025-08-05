@@ -2,31 +2,34 @@ from .base import *
 
 
 class StaticGroupPlotDrawer(BaseDrawer):
-    def draw(self,
-             plot_list,
-             first_seconds=None, last_seconds=None, time_range=None,
-             id_list=None
-             ):
+    def draw(self, plot_list):
         self._check_plot_list(plot_list)
+
         fig = plt.figure(figsize=self.FIGSIZE)
         fig.set_tight_layout(True)
 
-        axes_map = GridLayout(fig, plot_list, id_list=range(self.data["config"]["num"])).allocate_axes()
+        axes_map = GridLayout(
+            fig,
+            plot_list,
+            self.REGISTERED_COMPONENTS,
+            expand=True,
+            id_list=self.interpreter.id_list,
+        ).allocate_axes()
 
-        components = []
+        original_id_list = self.interpreter.id_list
 
         for item in axes_map:
+            self.interpreter.set_id_list(item["id_list"])
             component_class = self._check_class(item["class"])
             item["mode"] = 'group'
-            components.append(
-                component_class(
-                    data=self.data,
-                    **item
-                )
+            component = component_class(
+                data=self.data,
+                interpreter=self.interpreter,
+                **item
             )
 
-        suffix = '-'.join([REGISTRIED_COMPONENTS[plot_type]["filename"] for plot_type in plot_list])
-        filename = os.path.join(self.folder, suffix + '-all.png')
-        fig.savefig(filename, dpi=self.DPI, bbox_inches='tight')
+        self.interpreter.set_id_list(original_id_list)
+
+        self._save_plot(fig, self._make_filename(plot_list, grouped=True))
+
         plt.close(fig)
-        print(f"Plot saved to {filename}")
