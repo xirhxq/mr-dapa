@@ -11,8 +11,6 @@ class GridLayout:
 
         self.expand = expand
         self.id_list = id_list
-        self.n = len(id_list)
-        self.robot_id = id_list[0] if id_list is not None and len(id_list) > 0 else None
 
         self.layout_config = self._get_layout()
 
@@ -34,9 +32,9 @@ class GridLayout:
                 }
             ]
         else:
-            total_grids = self.n * side_num
+            total_grids = side_num * (len(self.id_list) if self.expand else 1)
             side_cols = math.ceil(math.sqrt(total_grids))
-            side_rows = math.ceil(side_num * self.n / side_cols)
+            side_rows = math.ceil(side_num * (len(self.id_list) if self.expand else 1) / side_cols)
 
             if 'map' in self.plot_list:
                 map_cols = math.ceil(side_cols / 2)
@@ -56,7 +54,6 @@ class GridLayout:
                     for id in self.id_list:
                         layout_config['components'].append(
                             {
-                                'robot_id': id,
                                 **self.REGISTERED_COMPONENTS[item],
                                 'id_list': [id],
                             }
@@ -64,7 +61,6 @@ class GridLayout:
                 else:
                     layout_config['components'].append(
                         {
-                            'robot_id': self.robot_id,
                             **self.REGISTERED_COMPONENTS[item],
                             'id_list': self.id_list
                         }

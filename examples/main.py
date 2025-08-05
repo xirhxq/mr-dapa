@@ -24,6 +24,7 @@ components = {
     }
 }
 
+
 def interactive_menu(options):
     while True:
         print("\n" + "-" * 30)
@@ -50,6 +51,7 @@ def interactive_menu(options):
         else:
             print("Invalid input. Please try again.")
 
+
 def interactive_selection(options):
     print("Select options:")
     for idx, option in enumerate(options):
@@ -65,6 +67,7 @@ def find_files(folder: str, ptn: str, max_num: int = 1):
     print(f"Directories found: {files}")
     max_num = min(max_num, len(files))
     return [d for d in sorted(files)[:max_num]]
+
 
 def main_with_interactive_menu():
     files = interactive_selection(find_files('data', 'data_*.json', 10))
@@ -141,6 +144,7 @@ def main_with_interactive_menu():
 
 def minimal_main():
     file = 'data/data_1.json'
+
     StaticGlobalPlotDrawer([file]).register_components(components).draw(['x', 'y'])
 
     StaticGlobalPlotDrawer([file]).register_components(components).set_id_list([2, 3]).draw(['xy-line'])
@@ -156,6 +160,7 @@ def minimal_main():
     StaticGroupPlotDrawer([file]).register_components(components).draw(['x', 'y'])
 
     StaticGroupPlotDrawer([file]).register_components(components).set_time_range((0.2, 0.5)).draw(['x', 'y'])
+
 
 if __name__ == '__main__':
     minimal_main()
