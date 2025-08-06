@@ -65,18 +65,20 @@ class BaseDrawer:
             os.makedirs(folder)
         return os.path.join(folder, plot_name)
 
-    def _save_plot(self, fig, plot_name):
-        filename = self._make_file(plot_name) + '.png'
+    def _save_plot(self, fig, plot_list, id_list=None, grouped=False):
+        filename = self._make_file(self._make_filename(plot_list, id_list))
+        if grouped:
+            filename += '-grouped'
+        filename += '.png'
         fig.savefig(filename, dpi=self.DPI, bbox_inches='tight')
-        print(f"Plot saved to {filename}")
+        return filename
 
-    def _save_animation(self, ani, plot_name, fps):
-        filename = self._make_file(plot_name) + '.mp4'
+    def _save_animation(self, ani, plot_list, id_list, time_ratio, fps):
+        filename = self._make_file(self._make_filename(plot_list, id_list))
+        filename += f'-{time_ratio:.1g}x-{fps:.1g}fps.mp4'
         ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.DPI)
-        print(f"Animation saved to {filename}")
+        return filename
 
     def _make_filename(self, plot_list, id_list=None, grouped=False):
         filename = '-'.join([self.REGISTERED_COMPONENTS[plot_type]["filename"] for plot_type in plot_list])
-        if grouped:
-            filename += '-grouped'
-        return filename + self.interpreter.get_filename_suffix(id_list=id_list)
+        return filename + self.interpreter.get_id_suffix(id_list=id_list)

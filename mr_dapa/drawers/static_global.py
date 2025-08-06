@@ -28,6 +28,8 @@ class StaticGlobalPlotDrawer(BaseDrawer):
                 **item
             )
 
-        self._save_plot(fig, self._make_filename(plot_list))
+        filename = self._save_plot(fig, plot_list)
 
         plt.close(fig)
+
+        print(f'Plot saved to {filename}')

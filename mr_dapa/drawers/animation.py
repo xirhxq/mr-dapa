@@ -3,8 +3,10 @@ from .base import *
 
 class AnimationDrawer(BaseDrawer):
 
-    def draw(self, plot_list, time_ratio=1, fps=10):
+    def draw(self, plot_list, time_ratio=1, fps=50):
         self._check_plot_list(plot_list)
+
+        fps = min(self.interpreter.get_fps(), fps)
 
         fig = plt.figure(figsize=self.FIGSIZE)
         fig.set_tight_layout(True)
@@ -54,6 +56,8 @@ class AnimationDrawer(BaseDrawer):
 
         self.interpreter.set_id_list(original_id_list)
 
-        self._save_animation(ani, self._make_filename(plot_list), fps=fps)
+        filename = self._save_animation(ani, plot_list, id_list=self.interpreter.id_list, time_ratio=time_ratio, fps=fps)
+
+        print(f"Animation with {time_ratio:.1g}x speed & {fps:.1g} fps saved to {filename}")
 
         pbar.close()

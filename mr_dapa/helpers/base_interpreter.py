@@ -86,7 +86,7 @@ class BaseInterpreter:
         else:
             return f', Robots [{", ".join([f"#{id}" for id in self.id_list])}]'
 
-    def get_filename_suffix(self, id_list=None):
+    def get_id_suffix(self, id_list=None):
         id_list = id_list if id_list is not None else self.id_list
         if id_list == self.get_full_id_list() and self.time_range == self.get_full_time_range():
             return ''
@@ -105,3 +105,11 @@ class BaseInterpreter:
                     units.add(value["unit"])
                     break
         return list(units)
+
+    def get_fps(self):
+        fps_list = []
+        for dt in self.data:
+            for frame in dt["values"]:
+                fps = (frame["timestamp"][-1] - frame["timestamp"][0]) / (len(frame["timestamp"]) - 1)
+                fps_list.append(fps)
+        return 1 / float(np.mean(fps_list))

@@ -10,6 +10,8 @@ class StaticSeparatePlotDrawer(BaseDrawer):
         if len(plot_list) == 1:
             self.FIGSIZE = self.REGISTERED_COMPONENTS[plot_list[0]]["figsize"]
 
+        filenames = []
+
         for id in self.interpreter.id_list:
             fig = plt.figure(figsize=self.FIGSIZE)
             fig.set_tight_layout(True)
@@ -32,9 +34,11 @@ class StaticSeparatePlotDrawer(BaseDrawer):
                     **item,
                 )
 
-            self._save_plot(fig, self._make_filename(plot_list, [id]))
+            filenames.append(self._save_plot(fig, plot_list, id_list=[id]))
 
             plt.close(fig)
             pbar.update(1)
 
         pbar.close()
+
+        print(f'Plots saved to {filenames}')

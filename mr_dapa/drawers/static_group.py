@@ -30,6 +30,8 @@ class StaticGroupPlotDrawer(BaseDrawer):
 
         self.interpreter.set_id_list(original_id_list)
 
-        self._save_plot(fig, self._make_filename(plot_list, grouped=True))
+        filename = self._save_plot(fig, plot_list, grouped=True)
 
         plt.close(fig)
+
+        print(f'Plot saved to {filename}')
