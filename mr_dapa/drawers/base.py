@@ -72,7 +72,7 @@ class BaseDrawer:
 
     def _save_animation(self, ani, plot_name, fps):
         filename = self._make_file(plot_name) + '.mp4'
-        ani.save(filename, writer='ffmpeg', fps=fps)
+        ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.DPI)
         print(f"Animation saved to {filename}")
 
     def _make_filename(self, plot_list, id_list=None, grouped=False):
