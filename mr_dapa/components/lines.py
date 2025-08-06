@@ -61,7 +61,8 @@ class LinesComponent(BaseComponent):
                 )
                 self.lines[self._make_label(frame['id'], value["name"])] = line
 
-        self.ax.legend(loc='best')
+        if len(self.lines) > 1:
+            self.ax.legend(loc='best')
 
         if self.mode == "animation":
             self._animation_setup()
@@ -94,4 +95,5 @@ class LinesComponent(BaseComponent):
 
             self.value_texts[label].set_text(f"{label}: {line.get_ydata()[index]:.4f}")
 
-        self.ax.legend(loc='best')
+        if len(self.lines) > 1:
+            self.ax.legend(loc='best')
