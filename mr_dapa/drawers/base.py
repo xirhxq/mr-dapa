@@ -75,7 +75,8 @@ class BaseDrawer:
 
     def _save_animation(self, ani, plot_list, id_list, time_ratio, fps):
         filename = self._make_file(self._make_filename(plot_list, id_list))
-        filename += f'-{time_ratio:.1g}x-{fps:.1g}fps.mp4'
+        fps_str = f'{fps:.1f}' if fps < 1 else f'{fps:.0f}'
+        filename += f'-{time_ratio:.1g}x-{fps_str}fps.mp4'
         ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.DPI)
         return filename
 

@@ -58,6 +58,6 @@ class AnimationDrawer(BaseDrawer):
 
         filename = self._save_animation(ani, plot_list, id_list=self.interpreter.id_list, time_ratio=time_ratio, fps=fps)
 
-        print(f"Animation with {time_ratio:.1g}x speed & {fps:.1g} fps saved to {filename}")
+        print(f"Animation saved to {filename}")
 
         pbar.close()
