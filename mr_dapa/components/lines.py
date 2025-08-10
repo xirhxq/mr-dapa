@@ -14,6 +14,8 @@ class LinesComponent(BaseComponent):
 
         self.mode = mode
 
+        self.kwargs = kwargs
+
         self.lines = {}
         self.markers = {}
         self.value_texts = {}
@@ -45,7 +47,20 @@ class LinesComponent(BaseComponent):
         self.ax.set_xlabel("Time (s)")
         self.ax.set_ylabel("Values" + ((" (" + self.units[0] + ")") if self.single_unit else ""))
 
-        self.ax.axhline(0, color='black', linestyle='--', alpha=0.3)
+        if 'bars' in self.kwargs:
+            assert isinstance(self.kwargs['bars'], list), \
+                f'Bars must be a list, got {type(self.kwargs["bars"])}'
+            for index, bar in enumerate(self.kwargs['bars']):
+                assert isinstance(bar, float) or isinstance(bar, int), \
+                    f'Bars must be a list of floats or ints, got {type(bar)} at index {index}'
+                self.ax.axhline(bar, color='black', linestyle='--', alpha=0.3)
+
+        if 'range' in self.kwargs:
+            assert isinstance(self.kwargs['range'], list) and len(self.kwargs['range']) == 2, \
+                f'Range must be a list with 2 elements, got {len(self.kwargs["range"])}'
+            assert all(isinstance(x, float) or isinstance(x, int) for x in self.kwargs['range']), \
+                f'Range must be a list of floats or ints, got {self.kwargs["range"]}'
+            self.ax.axhspan(self.kwargs['range'][0], self.kwargs['range'][1], alpha=0.1, color='grey')
 
         for frame in self.interpreter.data:
             for value in frame["values"]:

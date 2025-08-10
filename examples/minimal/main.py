@@ -8,12 +8,28 @@ components = {
         'filename': 'x',
         'figsize': (6, 6),
     },
+    'x-with-bars': {
+        'title': 'X Position',
+        'class': 'LinesComponent',
+        'keys': ['x'],
+        'filename': 'x-with-bars',
+        'figsize': (6, 6),
+        'bars': [-1, 0, 1],
+    },
     'y': {
         'title': 'Y Position',
         'class': 'LinesComponent',
         'keys': ['y'],
         'filename': 'y',
         'figsize': (12, 8),
+    },
+    'y-with-range': {
+        'title': 'Y Position',
+        'class': 'LinesComponent',
+        'keys': ['y'],
+        'filename': 'y-with-range',
+        'figsize': (12, 8),
+        'range': [-0.5, 3.9]
     },
     'xy-line': {
         'title': 'X & Y Position, Separated',
@@ -35,6 +51,8 @@ def minimal_main():
     file = 'data.json'
 
     StaticGlobalPlotDrawer([file]).register_components(components).draw(['x', 'y'])
+
+    StaticGlobalPlotDrawer([file]).register_components(components).draw(['x-with-bars', 'y-with-range'])
 
     StaticGlobalPlotDrawer([file]).register_components(components).set_id_list([2, 3]).draw(['xy-line'])
 
