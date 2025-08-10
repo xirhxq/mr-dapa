@@ -83,6 +83,8 @@ class BaseInterpreter:
     def get_title_suffix(self):
         if self.id_list == self.get_full_id_list():
             return ', All Robots'
+        elif len(self.id_list) == 1:
+            return f', Robot #{self.id_list[0]}'
         else:
             return f', Robots [{", ".join([f"#{id}" for id in self.id_list])}]'
 

@@ -21,6 +21,12 @@ components = {
         'keys': ['x', 'y'],
         'filename': 'xy-line',
         'figsize': (12, 6),
+    },
+    'map': {
+        'title': 'Map',
+        'class': 'MapComponent',
+        'filename': 'map',
+        'figsize': (8, 8),
     }
 }
 
@@ -49,6 +55,12 @@ def minimal_main():
     AnimationDrawer([file]).register_components(components).set_time_range((0.2, 0.5)).draw(['x'])
 
     AnimationDrawer([file]).register_components(components).set_last_seconds(2).draw(['y'], fps=20)
+
+    AnimationDrawer([file]).register_components(components).draw(['map'])
+
+    AnimationDrawer([file]).register_components(components).set_time_range((0.2, 0.5)).draw(['map', 'xy-line'])
+
+    AnimationDrawer([file]).register_components(components).set_last_seconds(2).set_id_list([1, 3]).draw(['map', 'x', 'y'])
 
 if __name__ == '__main__':
     minimal_main()

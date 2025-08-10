@@ -93,7 +93,10 @@ class LinesComponent(BaseComponent):
                 self.value_texts[label].set_horizontalalignment('right')
                 self.value_texts[label].set_position((timestamp - time_offset, line.get_ydata()[index]))
 
-            self.value_texts[label].set_text(f"{label}: {line.get_ydata()[index]:.4f}")
+            if len(self.lines) > 1:
+                self.value_texts[label].set_text(f"{label}: {line.get_ydata()[index]:.4f}")
+            else:
+                self.value_texts[label].set_text(f"{line.get_ydata()[index]:.4f}")
 
         if len(self.lines) > 1:
             self.ax.legend(loc='best')
