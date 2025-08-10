@@ -52,6 +52,8 @@ def minimal_main():
 
     AnimationDrawer([file]).register_components(components).draw(['x', 'y'])
 
+    AnimationDrawer([file]).register_components(components).draw(['x', 'y'], time_ratio=2)
+
     AnimationDrawer([file]).register_components(components).set_time_range((0.2, 0.5)).draw(['x'])
 
     AnimationDrawer([file]).register_components(components).set_last_seconds(2).draw(['y'], fps=20)
