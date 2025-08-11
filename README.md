@@ -2,9 +2,30 @@
 
 A simple Python-based tool to assist with data animation and plotting for multi-robot simulation/experiment data.
 
+## File Structure
+The project follows a standard Python package structure:
+
+```
+mr-dapa/
+ ├── mr_dapa/ # Core source code 
+ ├── examples/ # Example scripts and data 
+ │ └── minimal/ # Minimal usage example 
+ │   ├── main.py # Main script for minimal example 
+ │   └── data.json/ # Sample data file
+ └── README.md # Project documentation
+```
+
 ## Overview
 
-To be completed.
+Mr. Dapa is a powerful visualization tool designed to help researchers and engineers working with multi-robot systems to easily create static plots and animations from their experimental or simulation data. It provides a fluent API for generating various types of visualizations with minimal code.
+
+The library supports multiple visualization modes:
+- Static global plots (data from all robots in single or multiple subplots)
+- Static separate plots (individual plots per robot)
+- Static group plots (grouped data visualization)
+- Animated visualizations (time-based animations)
+
+For further details, we strongly recommend the users to try with the [minimal example](examples/minimal/main.py).
 
 ## Requirements
 
@@ -30,6 +51,15 @@ pip uninstall mr-dapa
  ```
 
 This allows you to use standard Python imports in all project files.
+
+## Usage Example
+
+For basic usage patterns, see the [minimal example](examples/minimal/main.py) that demonstrates:
+- Data visualization configuration through component registration
+- Fluent API for plot customization (time ranges, robot IDs, display parameters)
+- Various plot types including static plots and animations
+
+The visualization configuration is defined in `examples/minimal/main.py` through component registration and method chaining.
 
 ## Further Development
 
@@ -58,5 +88,7 @@ pip install -e .
 MIT License - see the [LICENSE](LICENSE) file for details
 
 ## To-do List
- - Support for customisable plotting
- - Support for 3D plots
+ - Toggle trace showing in 2D map
+ - Heatmap component
+ - Example with data transforming from other  formats
+ - 3D map
