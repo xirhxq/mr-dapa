@@ -33,6 +33,7 @@ components = {
     'map': {
         'title': 'Map',
         'class': 'MapComponent',  # 2d map component
+        'limits': {"x": [-3, 7], "y": [-3, 7]},
     }
 }
 

@@ -8,7 +8,12 @@ class MapComponent(BaseComponent):
         self.interpreter = interpreter
         self.title = title + self.interpreter.get_title_suffix()
 
-        self.map_limits = self._get_map_limits()
+        if 'limits' in kwargs:
+            self.map_limits = kwargs.pop('limits')
+        elif hasattr(self.interpreter, 'get_map_limits'):
+            self.map_limits = self.interpreter.get_map_limits()
+        else:
+            self.map_limits =  {"x": [-10, 10], "y": [-10, 10]}
 
         self.robot_data = {}
         for robot in self.interpreter.data:
@@ -49,6 +54,8 @@ class MapComponent(BaseComponent):
 
         self.ax.set_xlim(self.map_limits["x"])
         self.ax.set_ylim(self.map_limits["y"])
+
+        self.ax.set_aspect('equal', adjustable='box')
 
         if len(self.robots_plot) > 1:
             self.ax.legend(loc='best')

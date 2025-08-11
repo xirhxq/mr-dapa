@@ -6,6 +6,8 @@ class AnimationDrawer(BaseDrawer):
     def draw(self, plot_list, time_ratio=1, fps=50):
         self._check_plot_list(plot_list)
 
+        self.decide_sole_figsize(plot_list)
+
         fps = min(self.interpreter.get_fps(), fps)
 
         fig = plt.figure(figsize=self.FIGSIZE)
