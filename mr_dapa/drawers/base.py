@@ -10,18 +10,16 @@ class BaseDrawer:
     FIGSIZE = (16, 9)
     REGISTERED_COMPONENTS = {}
 
-    def __init__(self, files, interpreter=None):
+    def __init__(self, files: list[str], components: json, interpreter=None):
         self.loader = DataLoader(files)
         self.data = self.loader.data
         self.folder = self.loader.folder
 
+        self.REGISTERED_COMPONENTS.update(components)
+
         self.interpreter = BaseInterpreter(self.data) if interpreter is None else interpreter(self.data)
 
         plt.switch_backend('agg')
-
-    def register_components(self, components):
-        self.REGISTERED_COMPONENTS.update(components)
-        return self
 
     def decide_sole_figsize(self, plot_list):
         if len(plot_list) > 1:
