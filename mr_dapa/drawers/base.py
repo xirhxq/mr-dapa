@@ -23,6 +23,12 @@ class BaseDrawer:
         self.REGISTERED_COMPONENTS.update(components)
         return self
 
+    def decide_sole_figsize(self, plot_list):
+        if len(plot_list) > 1:
+            return
+        cls = self._check_class(self.REGISTERED_COMPONENTS[plot_list[0]]['class'])
+        self.FIGSIZE = cls.FIGSIZE
+
     def set_id_list(self, id_list):
         self.interpreter.set_id_list(id_list)
         return self

@@ -5,8 +5,7 @@ class StaticGlobalPlotDrawer(BaseDrawer):
     def draw(self, plot_list):
         self._check_plot_list(plot_list)
 
-        if len(plot_list) == 1:
-            self.FIGSIZE = self.REGISTERED_COMPONENTS[plot_list[0]]["figsize"]
+        self.decide_sole_figsize(plot_list)
 
         fig = plt.figure(figsize=self.FIGSIZE)
         fig.set_tight_layout(True)

@@ -5,38 +5,32 @@ components = {
         'title': 'X Position',
         'class': 'LinesComponent',
         'keys': ['x'],
-        'figsize': (6, 6),
     },
     'x-with-bars': {
         'title': 'X Position',
         'class': 'LinesComponent',
         'keys': ['x'],
-        'figsize': (6, 6),
         'bars': [-1, 0, 1],
     },
     'y': {
         'title': 'Y Position',
         'class': 'LinesComponent',
         'keys': ['y'],
-        'figsize': (12, 8),
     },
     'y-with-range': {
         'title': 'Y Position',
         'class': 'LinesComponent',
         'keys': ['y'],
-        'figsize': (12, 8),
         'range': [-0.5, 3.9]
     },
     'xy-line': {
         'title': 'X & Y Position, Separated',
         'class': 'LinesComponent',
         'keys': ['x', 'y'],
-        'figsize': (12, 6),
     },
     'map': {
         'title': 'Map',
         'class': 'MapComponent',
-        'figsize': (8, 8),
     }
 }
 

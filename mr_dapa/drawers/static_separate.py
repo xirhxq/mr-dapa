@@ -7,8 +7,7 @@ class StaticSeparatePlotDrawer(BaseDrawer):
 
         pbar = tqdm.tqdm(total=len(self.interpreter.id_list), bar_format=self.BAR_FORMAT)
 
-        if len(plot_list) == 1:
-            self.FIGSIZE = self.REGISTERED_COMPONENTS[plot_list[0]]["figsize"]
+        self.decide_sole_figsize(plot_list)
 
         filenames = []
 
