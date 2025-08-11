@@ -80,6 +80,6 @@ class BaseDrawer:
         ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.DPI)
         return filename
 
-    def _make_filename(self, plot_list, id_list=None, grouped=False):
-        filename = '-'.join([self.REGISTERED_COMPONENTS[plot_type]["filename"] for plot_type in plot_list])
+    def _make_filename(self, plot_list, id_list=None):
+        filename = '-'.join([self.REGISTERED_COMPONENTS[plot_type]["filename"] if "filename" in self.REGISTERED_COMPONENTS[plot_type] else plot_type for plot_type in plot_list])
         return filename + self.interpreter.get_id_suffix(id_list=id_list)

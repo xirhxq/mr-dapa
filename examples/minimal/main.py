@@ -5,14 +5,12 @@ components = {
         'title': 'X Position',
         'class': 'LinesComponent',
         'keys': ['x'],
-        'filename': 'x',
         'figsize': (6, 6),
     },
     'x-with-bars': {
         'title': 'X Position',
         'class': 'LinesComponent',
         'keys': ['x'],
-        'filename': 'x-with-bars',
         'figsize': (6, 6),
         'bars': [-1, 0, 1],
     },
@@ -20,14 +18,12 @@ components = {
         'title': 'Y Position',
         'class': 'LinesComponent',
         'keys': ['y'],
-        'filename': 'y',
         'figsize': (12, 8),
     },
     'y-with-range': {
         'title': 'Y Position',
         'class': 'LinesComponent',
         'keys': ['y'],
-        'filename': 'y-with-range',
         'figsize': (12, 8),
         'range': [-0.5, 3.9]
     },
@@ -35,13 +31,11 @@ components = {
         'title': 'X & Y Position, Separated',
         'class': 'LinesComponent',
         'keys': ['x', 'y'],
-        'filename': 'xy-line',
         'figsize': (12, 6),
     },
     'map': {
         'title': 'Map',
         'class': 'MapComponent',
-        'filename': 'map',
         'figsize': (8, 8),
     }
 }
