@@ -6,6 +6,8 @@ from ..helpers.loader import DataLoader
 from ..helpers.base_interpreter import BaseInterpreter
 from ..components.lines import LinesComponent
 from ..components.map import MapComponent
+from ..components.scatter import ScatterComponent
+from ..components.fill import FillComponent
 
 import numpy as np
 import tqdm
@@ -15,6 +17,8 @@ import matplotlib.animation as animation
 _COMPONENT_CLASSES = {
     'LinesComponent': LinesComponent,
     'MapComponent': MapComponent,
+    'ScatterComponent': ScatterComponent,
+    'FillComponent': FillComponent,
 }
 
 
@@ -24,8 +28,8 @@ class BaseDrawer:
     FIGSIZE = (16, 9)
     REGISTERED_COMPONENTS = {}
 
-    def __init__(self, files: list[str], components: json, interpreter=None):
-        self.loader = DataLoader(files)
+    def __init__(self, files: list[str], components: dict, interpreter=None, adapter=None):
+        self.loader = DataLoader(files, adapter=adapter)
         self.data = self.loader.data
         self.folder = self.loader.folder
 
@@ -83,18 +87,24 @@ class BaseDrawer:
             os.makedirs(folder)
         return os.path.join(folder, plot_name)
 
-    def _save_plot(self, fig, plot_list, id_list=None, grouped=False):
-        filename = self._make_file(self._make_filename(plot_list, id_list))
-        if grouped:
-            filename += '-grouped'
-        filename += '.png'
+    def _save_figure(self, fig, plot_list, id_list=None, grouped=False, path=None):
+        if path:
+            filename = path
+        else:
+            filename = self._make_file(self._make_filename(plot_list, id_list))
+            if grouped:
+                filename += '-grouped'
+            filename += '.png'
         fig.savefig(filename, dpi=self.DPI, bbox_inches='tight')
         return filename
 
-    def _save_animation(self, ani, plot_list, id_list, time_ratio, fps):
-        filename = self._make_file(self._make_filename(plot_list, id_list))
-        fps_str = f'{fps:.1f}' if fps < 1 else f'{fps:.0f}'
-        filename += f'-{time_ratio:.1g}x-{fps_str}fps.mp4'
+    def _save_animation(self, ani, plot_list, id_list, time_ratio, fps, path=None):
+        if path:
+            filename = path
+        else:
+            filename = self._make_file(self._make_filename(plot_list, id_list))
+            fps_str = f'{fps:.1f}' if fps < 1 else f'{fps:.0f}'
+            filename += f'-{time_ratio:.1g}x-{fps_str}fps.mp4'
         ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.DPI)
         return filename
 

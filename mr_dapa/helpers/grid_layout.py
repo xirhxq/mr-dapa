@@ -13,42 +13,66 @@ class GridLayout:
 
         self.layout_config = self._get_layout()
 
-
     def _get_layout(self):
-        side_list = [s for s in self.plot_list if s != 'map']
-        side_num = len(side_list)
+        from ..drawers.base import _COMPONENT_CLASSES
+
+        expandable = []
+        non_expandable = []
+
+        for item_name in self.plot_list:
+            class_name = self.REGISTERED_COMPONENTS[item_name]['class']
+            comp_cls = _COMPONENT_CLASSES.get(class_name)
+            if comp_cls and not comp_cls.expand:
+                non_expandable.append(item_name)
+            else:
+                expandable.append(item_name)
+
+        side_num = len(expandable)
 
         layout_config = {}
-        if side_num == 0:
+        if side_num == 0 and len(non_expandable) == 1:
             layout_config['rows'] = 1
             layout_config['cols'] = 1
             layout_config['components'] = [
                 {
-                    'name': 'map',
+                    'name': non_expandable[0],
                     'grid': [[None, None], [None, None]],
-                    **self.REGISTERED_COMPONENTS['map'],
+                    **self.REGISTERED_COMPONENTS[non_expandable[0]],
                     'id_list': self.id_list
                 }
             ]
+        elif side_num == 0:
+            cols = min(len(non_expandable), 2)
+            rows = math.ceil(len(non_expandable) / cols)
+            layout_config['rows'] = rows
+            layout_config['cols'] = cols
+            layout_config['components'] = []
+            grids = [[i // cols, i % cols] for i in range(len(non_expandable))]
+            for idx, item_name in enumerate(non_expandable):
+                layout_config['components'].append(
+                    {
+                        'name': item_name,
+                        'grid': grids[idx],
+                        **self.REGISTERED_COMPONENTS[item_name],
+                        'id_list': self.id_list
+                    }
+                )
         else:
             total_grids = side_num * (len(self.id_list) if self.expand else 1)
             side_cols = math.ceil(math.sqrt(total_grids))
             side_rows = math.ceil(side_num * (len(self.id_list) if self.expand else 1) / side_cols)
 
-            if 'map' in self.plot_list:
-                map_cols = math.ceil(side_cols / 2)
-            else:
-                map_cols = 0
+            ne_cols = math.ceil(side_cols / 2) if non_expandable else 0
 
             layout_config = {
                 'components': [],
                 'rows': side_rows,
-                'cols': side_cols + map_cols,
+                'cols': side_cols + ne_cols,
             }
 
-            grids = [[i, j + map_cols] for i in range(side_rows) for j in range(side_cols)]
+            grids = [[i, j + ne_cols] for i in range(side_rows) for j in range(side_cols)]
 
-            for index, item in enumerate(side_list):
+            for index, item in enumerate(expandable):
                 if self.expand:
                     for id in self.id_list:
                         layout_config['components'].append(
@@ -70,11 +94,11 @@ class GridLayout:
             for index, item in enumerate(layout_config['components']):
                 item['grid'] = grids[index]
 
-            if 'map' in self.plot_list:
+            for item_name in non_expandable:
                 layout_config['components'].append(
                     {
-                        'grid': [[None, None], [None, map_cols]],
-                        **self.REGISTERED_COMPONENTS['map'],
+                        'grid': [[None, None], [None, ne_cols]],
+                        **self.REGISTERED_COMPONENTS[item_name],
                         'id_list': self.id_list
                     }
                 )
