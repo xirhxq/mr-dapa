@@ -20,17 +20,14 @@ class AnimationDrawer(BaseDrawer):
             id_list=self.interpreter.id_list
         ).allocate_axes()
 
-        original_id_list = self.interpreter.id_list
-
         components = []
 
         for item in axes_map:
-            self.interpreter.set_id_list(item["id_list"])
+            sub_interp = self.interpreter.for_robots(item["id_list"])
             component_class = self._check_class(item["class"])
             components.append(
                 component_class(
-                    data=self.data,
-                    interpreter=self.interpreter,
+                    interpreter=sub_interp,
                     mode='animation',
                     **item
                 )
@@ -55,8 +52,6 @@ class AnimationDrawer(BaseDrawer):
             interval=interval_ms,
             blit=False
         )
-
-        self.interpreter.set_id_list(original_id_list)
 
         filename = self._save_animation(ani, plot_list, id_list=self.interpreter.id_list, time_ratio=time_ratio, fps=fps)
 

@@ -16,19 +16,14 @@ class StaticGroupPlotDrawer(BaseDrawer):
             id_list=self.interpreter.id_list,
         ).allocate_axes()
 
-        original_id_list = self.interpreter.id_list
-
         for item in axes_map:
-            self.interpreter.set_id_list(item["id_list"])
+            sub_interp = self.interpreter.for_robots(item["id_list"])
             component_class = self._check_class(item["class"])
             item["mode"] = 'group'
             component = component_class(
-                data=self.data,
-                interpreter=self.interpreter,
+                interpreter=sub_interp,
                 **item
             )
-
-        self.interpreter.set_id_list(original_id_list)
 
         filename = self._save_plot(fig, plot_list, grouped=True)
 

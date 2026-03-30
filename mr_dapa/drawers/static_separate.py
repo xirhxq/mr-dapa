@@ -15,6 +15,8 @@ class StaticSeparatePlotDrawer(BaseDrawer):
             fig = plt.figure(figsize=self.FIGSIZE)
             fig.set_tight_layout(True)
 
+            sub_interp = self.interpreter.for_robots([id])
+
             axes_map = GridLayout(
                 fig,
                 plot_list,
@@ -24,12 +26,11 @@ class StaticSeparatePlotDrawer(BaseDrawer):
             ).allocate_axes()
 
             for item in axes_map:
-                self.interpreter.set_id_list(item["id_list"])
+                item_interp = sub_interp.for_robots(item["id_list"])
                 component_class = self._check_class(item["class"])
                 item["mode"] = 'separate'
                 component = component_class(
-                    data=self.data,
-                    interpreter=self.interpreter,
+                    interpreter=item_interp,
                     **item,
                 )
 

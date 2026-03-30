@@ -1,7 +1,21 @@
-from ..helpers.grid_layout import *
+import os
+import json
+
+from ..helpers.grid_layout import GridLayout
 from ..helpers.loader import DataLoader
-from ..helpers.utils import *
 from ..helpers.base_interpreter import BaseInterpreter
+from ..components.lines import LinesComponent
+from ..components.map import MapComponent
+
+import numpy as np
+import tqdm
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+_COMPONENT_CLASSES = {
+    'LinesComponent': LinesComponent,
+    'MapComponent': MapComponent,
+}
 
 
 class BaseDrawer:
@@ -28,19 +42,19 @@ class BaseDrawer:
         self.FIGSIZE = cls.FIGSIZE
 
     def set_id_list(self, id_list):
-        self.interpreter.set_id_list(id_list)
+        self.interpreter = self.interpreter.for_robots(id_list)
         return self
 
     def set_first_seconds(self, first_seconds):
-        self.interpreter.set_first_seconds(first_seconds)
+        self.interpreter = self.interpreter.for_first_seconds(first_seconds)
         return self
 
     def set_last_seconds(self, last_seconds):
-        self.interpreter.set_last_seconds(last_seconds)
+        self.interpreter = self.interpreter.for_last_seconds(last_seconds)
         return self
 
     def set_time_range(self, time_range):
-        self.interpreter.set_time_range(time_range)
+        self.interpreter = self.interpreter.for_time_range(time_range)
         return self
 
     def _check_plot_type(self, plot_type):
@@ -58,9 +72,9 @@ class BaseDrawer:
             )
 
     def _check_class(self, class_name):
-        if class_name not in globals():
-            raise ValueError(f"Component class '{class_name}' not found. ")
-        return globals()[class_name]
+        if class_name not in _COMPONENT_CLASSES:
+            raise ValueError(f"Component class '{class_name}' not found.")
+        return _COMPONENT_CLASSES[class_name]
 
     def _make_file(self, plot_name):
         filename = self.loader.file.split('/')[-1].split('.')[0]

@@ -19,11 +19,11 @@ class StaticGlobalPlotDrawer(BaseDrawer):
         ).allocate_axes()
 
         for item in axes_map:
+            sub_interp = self.interpreter.for_robots(item["id_list"])
             component_class = self._check_class(item["class"])
             item["mode"] = 'global'
             component = component_class(
-                data=self.data,
-                interpreter=self.interpreter,
+                interpreter=sub_interp,
                 **item
             )
 
