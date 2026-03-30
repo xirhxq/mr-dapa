@@ -1,94 +1,96 @@
-# Mr. Dapa - Multi-Robot Data Animation & Plot Assistance
+# mr-dapa — Multi-Robot Data Animation & Plotting Assistance
 
-A simple Python-based tool to assist with data animation and plotting for multi-robot simulation/experiment data.
+Rapid visualization of multi-agent time-series data. Researchers have N robots' timestamped data (possibly async, possibly from different sources) and need to quickly generate static plots and animations.
 
-## File Structure
-The project follows a standard Python package structure:
+## Quick Start
 
-```
-mr-dapa/
- ├── mr_dapa/ # Core source code 
- ├── examples/ # Example scripts and data 
- │ └── minimal/ # Minimal usage example 
- │   ├── main.py # Main script for minimal example 
- │   └── data.json/ # Sample data file
- └── README.md # Project documentation
+```bash
+pip install -e .
+python examples/minimal/generate_data.py
+python examples/minimal/main.py
 ```
 
-## Overview
+## API Overview
 
-Mr. Dapa is a powerful visualization tool designed to help researchers and engineers working with multi-robot systems to easily create static plots and animations from their experimental or simulation data. It provides a fluent API for generating various types of visualizations with minimal code.
+```python
+import mr_dapa as mrdp
 
-The library supports multiple visualization modes:
-- Static global plots (data from all robots in single or multiple subplots)
-- Static separate plots (individual plots per robot)
-- Static group plots (grouped data visualization)
-- Animated visualizations (time-based animations)
+components = {
+    'x': {'title': 'X Position', 'class': 'LinesComponent', 'keys': ['x']},
+    'map': {'title': 'Map', 'class': 'MapComponent', 'limits': {"x": [-3, 7], "y": [-3, 7]}},
+}
 
-For further details, we strongly recommend the users to try with the [minimal example](examples/minimal/main.py).
+# Static plot — returns figure (no file saved)
+fig = mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components).draw(['x', 'map'])
+
+# Chain API for filtering
+mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components) \
+    .set_id_list([1, 3]) \
+    .set_time_range((0.2, 0.5)) \
+    .draw(['x'], save=True)                # save=True writes to file
+
+# Animation
+mrdp.AnimationDrawer(files=['data.json'], components=components) \
+    .draw(['x', 'map'], time_ratio=2, save=True)
+```
+
+### Draw Modes
+
+| Drawer | Behavior |
+|--------|----------|
+| `StaticGlobalPlotDrawer` | All robots in shared subplots |
+| `StaticSeparatePlotDrawer` | One figure per robot |
+| `StaticGroupPlotDrawer` | All robots, per-robot subplots in one figure |
+| `AnimationDrawer` | Time-based MP4 animation |
+
+### Components
+
+| Component | Description |
+|-----------|-------------|
+| `LinesComponent` | Time-series line plots |
+| `MapComponent` | 2D position map with trails |
+| `ScatterComponent` | Scatter/phase plot (x vs y) |
+| `FillComponent` | Filled area between values |
+
+### Adapters
+
+```python
+from mr_dapa import CSVAdapter, MultiFileAdapter, NumPyAdapter
+
+loader = mrdp.StaticGlobalPlotDrawer(files=['data.csv'], components=components, adapter=CSVAdapter())
+loader = mrdp.StaticGlobalPlotDrawer(files=['r1.json', 'r2.json'], components=components, adapter=MultiFileAdapter())
+```
+
+## Data Format
+
+Canonical JSON format (each robot has its own timestamp array — supports async data):
+
+```json
+[
+  {
+    "id": 1,
+    "timestamp": [0.0, 0.02, 0.04],
+    "values": [
+      {"name": "X Position", "alias": "x", "unit": "m", "value": [1.0, 1.1, 1.2]},
+      {"name": "Y Position", "alias": "y", "unit": "m", "value": [2.0, 2.1, 2.2]}
+    ]
+  }
+]
+```
 
 ## Requirements
 
-- **Python 3.6 or higher** (due to use of f-strings syntax)
-- **numpy>=1.24.0**
-- **matplotlib>=3.0.0**
-- **ffmpeg**
-- **tqdm**
+- Python >= 3.9
+- numpy, matplotlib, tqdm
+- ffmpeg (for animation export)
 
 ## Installation
 
-For development, we recommend installing the package in editable mode:
-
 ```bash
-# Install the package in development mode
 pip install -e .
-```
-
-To uninstall:
-
-```bash
-pip uninstall mr-dapa
- ```
-
-This allows you to use standard Python imports in all project files.
-
-## Usage Example
-
-For basic usage patterns, see the [minimal example](examples/minimal/main.py) that demonstrates:
-- Data visualization configuration through component registration
-- Fluent API for plot customization (time ranges, robot IDs, display parameters)
-- Various plot types including static plots and animations
-
-The visualization configuration is defined in `examples/minimal/main.py` through component registration and method chaining.
-
-## Further Development
-
-If you want to develop this project, we recommend creating a separate environment with [conda](https://docs.conda.io/en/latest/) or [venv](https://docs.python.org/3/library/venv.html).
-
-### Create a conda environment
-
-```bash
-conda create -n mr-dapa python=3.11
-conda activate mr-dapa
-pip install -r requirements.txt
-pip install -e .
-```
-
-### Create a venv environment
-
-```bash
-python3 -m venv mr-dapa
-source mr-dapa/bin/activate
-pip install -r requirements.txt
-pip install -e .
+pip install -e ".[dev]"   # includes pytest, ruff
 ```
 
 ## License
 
-MIT License - see the [LICENSE](LICENSE) file for details
-
-## To-do List
- - Toggle trace showing in 2D map
- - Heatmap component
- - Example with data transforming from other  formats
- - 3D map
+MIT
