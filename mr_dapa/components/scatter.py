@@ -6,6 +6,7 @@ from .base import BaseComponent
 class ScatterComponent(BaseComponent):
     FIGSIZE = (6, 6)
     expand = False
+    required_config_keys = {'x_key': str, 'y_key': str}
 
     def __init__(self, ax, interpreter, title="", x_key='x', y_key='y', mode='static', **kwargs):
         super().__init__(ax, interpreter, title=title, mode=mode, **kwargs)

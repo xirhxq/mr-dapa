@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-03-30
+
+### Added
+
+- **Component Registry**: dynamic registration via `register_component()`, `unregister_component()`, `get_component_class()`, `list_components()`
+- **Config Validation**: `BaseComponent.validate_config()` checks `required_config_keys` at drawer init time
+- **Fuzzy Error Messages**: unknown component class names suggest closest match (e.g. `'LinesCompnent'` → `'LinesComponent'`)
+- **Custom Component Example**: `examples/custom_component/` with a BarComponent
+- **Public API**: `__all__` with 18 exported symbols
+
+### Changed
+
+- `_COMPONENT_CLASSES` dict replaced by `mr_dapa/registry.py` module
+- `GridLayout` uses registry instead of hardcoded imports
+- `BaseDrawer.__init__` validates all component configs before any drawing
+
 ## [0.2.0] - 2026-03-30
 
 ### Added

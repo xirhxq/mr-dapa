@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mr-dapa"
-version = "0.2.0"
+version = "0.3.0"
 description = "Multi-Robot Data Animation & Plotting Assistance"
 requires-python = ">=3.9"
 dependencies = [

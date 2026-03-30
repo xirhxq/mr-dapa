@@ -4,6 +4,7 @@ from .base import BaseComponent
 
 
 class LinesComponent(BaseComponent):
+    required_config_keys = {'keys': list}
 
     def __init__(self, ax, interpreter, title="", keys=None, mode='static', **kwargs):
         super().__init__(ax, interpreter, title=title, mode=mode, **kwargs)
