@@ -2,7 +2,7 @@ from .base import *
 
 
 class StaticGlobalPlotDrawer(BaseDrawer):
-    def draw(self, plot_list):
+    def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
 
         self.decide_sole_figsize(plot_list)
@@ -27,8 +27,9 @@ class StaticGlobalPlotDrawer(BaseDrawer):
                 **item
             )
 
-        filename = self._save_plot(fig, plot_list)
+        if save or path:
+            filename = self._save_figure(fig, plot_list, path=path)
+            plt.close(fig)
+            print(f'Plot saved to {filename}')
 
-        plt.close(fig)
-
-        print(f'Plot saved to {filename}')
+        return fig

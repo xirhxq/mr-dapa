@@ -3,7 +3,7 @@ from .base import *
 
 class AnimationDrawer(BaseDrawer):
 
-    def draw(self, plot_list, time_ratio=1, fps=50):
+    def draw(self, plot_list, time_ratio=1, fps=50, save=False, path=None):
         self._check_plot_list(plot_list)
 
         self.decide_sole_figsize(plot_list)
@@ -41,20 +41,56 @@ class AnimationDrawer(BaseDrawer):
 
         pbar = tqdm.tqdm(total=total_length, bar_format=self.BAR_FORMAT)
 
-        def update(num):
-            pbar.update(1)
+        can_blit = self._check_blit_support(components, timestamps)
+
+        if can_blit and not (save or path):
+            def _update_frame(num):
+                pbar.update(1)
+                artists = []
+                for comp in components:
+                    result = comp.update(timestamps[num])
+                    if result:
+                        artists.extend(result)
+                return artists
+
+            ani = animation.FuncAnimation(
+                fig, _update_frame,
+                frames=total_length,
+                interval=interval_ms,
+                blit=True
+            )
+        else:
+            def _update_frame(num):
+                pbar.update(1)
+                for comp in components:
+                    comp.update(timestamps[num])
+
+            ani = animation.FuncAnimation(
+                fig, _update_frame,
+                frames=total_length,
+                interval=interval_ms,
+                blit=False
+            )
+
+        if save or path:
+            filename = self._save_animation(
+                ani, plot_list,
+                id_list=self.interpreter.id_list,
+                time_ratio=time_ratio, fps=fps,
+                path=path
+            )
+            print(f"Animation saved to {filename}")
+            pbar.close()
+
+        return fig
+
+    def _check_blit_support(self, components, timestamps):
+        try:
+            artists = []
             for comp in components:
-                comp.update(timestamps[num])
-
-        ani = animation.FuncAnimation(
-            fig, update,
-            frames=total_length,
-            interval=interval_ms,
-            blit=False
-        )
-
-        filename = self._save_animation(ani, plot_list, id_list=self.interpreter.id_list, time_ratio=time_ratio, fps=fps)
-
-        print(f"Animation saved to {filename}")
-
-        pbar.close()
+                result = comp.update(timestamps[0])
+                if result:
+                    artists.extend(result)
+            return len(artists) > 0
+        except (TypeError, AttributeError):
+            return False

@@ -2,14 +2,12 @@ from .base import *
 
 
 class StaticSeparatePlotDrawer(BaseDrawer):
-    def draw(self, plot_list):
+    def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
-
-        pbar = tqdm.tqdm(total=len(self.interpreter.id_list), bar_format=self.BAR_FORMAT)
 
         self.decide_sole_figsize(plot_list)
 
-        filenames = []
+        figs = []
 
         for id in self.interpreter.id_list:
             fig = plt.figure(figsize=self.FIGSIZE)
@@ -34,11 +32,17 @@ class StaticSeparatePlotDrawer(BaseDrawer):
                     **item,
                 )
 
-            filenames.append(self._save_plot(fig, plot_list, id_list=[id]))
+            figs.append(fig)
 
-            plt.close(fig)
-            pbar.update(1)
+        if save or path:
+            filenames = []
+            for idx, (fig, id) in enumerate(zip(figs, self.interpreter.id_list)):
+                fig_path = path if path and len(figs) == 1 else None
+                filenames.append(self._save_figure(fig, plot_list, id_list=[id], path=fig_path))
+                plt.close(fig)
+            if len(filenames) == 1:
+                print(f'Plot saved to {filenames[0]}')
+            else:
+                print(f'Plots saved to {filenames}')
 
-        pbar.close()
-
-        print(f'Plots saved to {filenames}')
+        return figs

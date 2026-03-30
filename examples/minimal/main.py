@@ -43,75 +43,74 @@ def minimal_main():
 
     # plot all x and all y in two subplots
     mrdp.StaticGlobalPlotDrawer(files=[file], components=components) \
-        .draw(['x', 'y'])
+        .draw(['x', 'y'], save=True)
 
     # plot all x and all y with customised bars and range
     mrdp.StaticGlobalPlotDrawer(files=[file], components=components) \
-        .draw(['x-with-bars', 'y-with-range'])
+        .draw(['x-with-bars', 'y-with-range'], save=True)
 
     # we can specify which robots to plot
     mrdp.StaticGlobalPlotDrawer(files=[file], components=components) \
         .set_id_list([2, 3]) \
-        .draw(['xy-line'])
+        .draw(['xy-line'], save=True)
 
     # we can also specify time range
     mrdp.StaticGlobalPlotDrawer(files=[file], components=components) \
         .set_time_range((0.2, 0.5)) \
-        .draw(['x', 'y'])
+        .draw(['x', 'y'], save=True)
 
     # also specify last seconds
     mrdp.StaticGlobalPlotDrawer(files=[file], components=components) \
-        .set_last_seconds(2).draw(['x', 'y'])
+        .set_last_seconds(2).draw(['x', 'y'], save=True)
 
     # plot x position per robot in separate plots
     mrdp.StaticSeparatePlotDrawer(files=[file], components=components) \
-        .draw(['x'])
+        .draw(['x'], save=True)
 
     # this mode also support customising time range
     mrdp.StaticSeparatePlotDrawer(files=[file], components=components) \
         .set_first_seconds(2) \
-        .draw(['x', 'y'])
+        .draw(['x', 'y'], save=True)
 
     # plot all x and all y per robot, but in one plot
     mrdp.StaticGroupPlotDrawer(files=[file], components=components) \
-        .draw(['x', 'y'])
+        .draw(['x', 'y'], save=True)
 
     # set time range and id list at the same time
     mrdp.StaticGroupPlotDrawer(files=[file], components=components) \
         .set_time_range((0.2, 0.5)) \
         .set_id_list([1, 3]) \
-        .draw(['x', 'y'])
+        .draw(['x', 'y'], save=True)
 
     # plot animation
     mrdp.AnimationDrawer(files=[file], components=components) \
-        .draw(['x', 'y'])
+        .draw(['x', 'y'], save=True)
 
-    # speed up 2x
     mrdp.AnimationDrawer(files=[file], components=components) \
-        .draw(['x', 'y'], time_ratio=2)
+        .draw(['x', 'y'], time_ratio=2, save=True)
 
     # customising time range
     mrdp.AnimationDrawer(files=[file], components=components) \
-        .set_time_range((0.2, 0.5)).draw(['x'])
+        .set_time_range((0.2, 0.5)).draw(['x'], save=True)
 
     # customising last seconds, then specify fps
     mrdp.AnimationDrawer(files=[file], components=components) \
-        .set_last_seconds(2).draw(['y'], fps=20)
+        .set_last_seconds(2).draw(['y'], fps=20, save=True)
 
     # plot 2d map
     mrdp.AnimationDrawer(files=[file], components=components) \
-        .draw(['map'])
+        .draw(['map'], save=True)
 
     # we could draw animation with multiple components
     mrdp.AnimationDrawer(files=[file], components=components) \
         .set_time_range((0.2, 0.5)) \
-        .draw(['map', 'xy-line'])
+        .draw(['map', 'xy-line'], save=True)
 
     # we can also specify id list
     mrdp.AnimationDrawer(files=[file], components=components) \
         .set_last_seconds(2) \
         .set_id_list([1, 3]). \
-        draw(['map', 'x', 'y'])
+        draw(['map', 'x', 'y'], save=True)
 
 
 if __name__ == '__main__':

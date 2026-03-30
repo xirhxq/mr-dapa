@@ -2,7 +2,7 @@ from .base import *
 
 
 class StaticGroupPlotDrawer(BaseDrawer):
-    def draw(self, plot_list):
+    def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
 
         fig = plt.figure(figsize=self.FIGSIZE)
@@ -25,8 +25,9 @@ class StaticGroupPlotDrawer(BaseDrawer):
                 **item
             )
 
-        filename = self._save_plot(fig, plot_list, grouped=True)
+        if save or path:
+            filename = self._save_figure(fig, plot_list, grouped=True, path=path)
+            plt.close(fig)
+            print(f'Plot saved to {filename}')
 
-        plt.close(fig)
-
-        print(f'Plot saved to {filename}')
+        return fig
