@@ -6,6 +6,7 @@ from .base import BaseComponent
 class FillComponent(BaseComponent):
     FIGSIZE = (6, 6)
     expand = True
+    required_config_keys = {'keys': list}
 
     def __init__(self, ax, interpreter, title="", keys=None, mode='static', **kwargs):
         super().__init__(ax, interpreter, title=title, mode=mode, **kwargs)

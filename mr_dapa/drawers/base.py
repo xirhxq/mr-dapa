@@ -4,22 +4,12 @@ import json
 from ..helpers.grid_layout import GridLayout
 from ..helpers.loader import DataLoader
 from ..helpers.base_interpreter import BaseInterpreter
-from ..components.lines import LinesComponent
-from ..components.map import MapComponent
-from ..components.scatter import ScatterComponent
-from ..components.fill import FillComponent
+from ..registry import get_component_class, list_components
 
 import numpy as np
 import tqdm
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
-_COMPONENT_CLASSES = {
-    'LinesComponent': LinesComponent,
-    'MapComponent': MapComponent,
-    'ScatterComponent': ScatterComponent,
-    'FillComponent': FillComponent,
-}
 
 
 class BaseDrawer:
@@ -34,15 +24,26 @@ class BaseDrawer:
         self.folder = self.loader.folder
 
         self.REGISTERED_COMPONENTS.update(components)
+        self._validate_components(components)
 
         self.interpreter = BaseInterpreter(self.data) if interpreter is None else interpreter(self.data)
 
         plt.switch_backend('agg')
 
+    def _validate_components(self, components: dict) -> None:
+        for name, config in components.items():
+            if 'class' not in config:
+                raise ValueError(
+                    f"Component '{name}': missing required key 'class'. "
+                    f"Available components: {list(list_components().keys())}"
+                )
+            cls = get_component_class(config['class'])
+            cls.validate_config(name, config)
+
     def decide_sole_figsize(self, plot_list):
         if len(plot_list) > 1:
             return
-        cls = self._check_class(self.REGISTERED_COMPONENTS[plot_list[0]]['class'])
+        cls = get_component_class(self.REGISTERED_COMPONENTS[plot_list[0]]['class'])
         self.FIGSIZE = cls.FIGSIZE
 
     def set_id_list(self, id_list):
@@ -76,9 +77,7 @@ class BaseDrawer:
             )
 
     def _check_class(self, class_name):
-        if class_name not in _COMPONENT_CLASSES:
-            raise ValueError(f"Component class '{class_name}' not found.")
-        return _COMPONENT_CLASSES[class_name]
+        return get_component_class(class_name)
 
     def _make_file(self, plot_name):
         filename = self.loader.file.split('/')[-1].split('.')[0]

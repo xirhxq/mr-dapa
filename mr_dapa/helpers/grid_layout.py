@@ -14,14 +14,14 @@ class GridLayout:
         self.layout_config = self._get_layout()
 
     def _get_layout(self):
-        from ..drawers.base import _COMPONENT_CLASSES
+        from ..registry import get_component_class
 
         expandable = []
         non_expandable = []
 
         for item_name in self.plot_list:
             class_name = self.REGISTERED_COMPONENTS[item_name]['class']
-            comp_cls = _COMPONENT_CLASSES.get(class_name)
+            comp_cls = get_component_class(class_name)
             if comp_cls and not comp_cls.expand:
                 non_expandable.append(item_name)
             else:
