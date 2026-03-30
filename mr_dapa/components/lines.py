@@ -1,4 +1,5 @@
-from ..helpers.utils import *
+import numpy as np
+
 from .base import BaseComponent
 
 

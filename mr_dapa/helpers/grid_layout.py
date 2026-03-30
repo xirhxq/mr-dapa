@@ -1,6 +1,5 @@
 import math
 from matplotlib.gridspec import GridSpec
-from ..components.components import *
 
 
 class GridLayout:
