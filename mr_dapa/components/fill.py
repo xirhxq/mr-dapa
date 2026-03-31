@@ -1,3 +1,20 @@
+"""Fill component for filled area plots."""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from .base import BaseComponent
+
+
+class FillComponent(BaseComponent):
+    """Filled area plot component.
+
+    Fills area between multiple value series, useful for showing
+    confidence intervals, uncertainty bounds, or value ranges.
+    """
+
+    FIGSIZE = (12, 6)
+    required_config_keys = {'keys': list}
+
 import numpy as np
 
 from .base import BaseComponent

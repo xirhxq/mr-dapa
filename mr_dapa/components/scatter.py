@@ -1,10 +1,18 @@
+"""Scatter component for phase plots and scatter visualizations."""
+
 import numpy as np
 
 from .base import BaseComponent
 
 
 class ScatterComponent(BaseComponent):
-    FIGSIZE = (6, 6)
+    """Scatter plot component for visualizing relationships between values.
+
+    Creates scatter plots of one value versus another (phase plots) with
+    separate colors for each robot.
+    """
+
+    FIGSIZE = (8, 8)
     expand = False
     required_config_keys = {'x_key': str, 'y_key': str}
 

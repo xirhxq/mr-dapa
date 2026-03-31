@@ -1,9 +1,16 @@
+"""Map component for 2D position visualization."""
+
 import numpy as np
 
 from .base import BaseComponent
 
 
 class MapComponent(BaseComponent):
+    """2D position map component.
+
+    Visualizes robot positions on a 2D map with trajectory trails and
+    robot ID annotations. Requires 'x' and 'y' value keys in data.
+    """
     expand = False
 
     def __init__(self, ax, interpreter, title="", mode='static', **kwargs):

@@ -1,3 +1,11 @@
+"""Base drawer class for all visualization modes.
+
+This module defines BaseDrawer, the abstract base class for all drawer
+types (StaticGlobal, StaticSeparate, StaticGroup, Animation). Drawers
+coordinate data loading, component configuration, style application,
+and figure saving.
+"""
+
 import os
 
 from ..helpers.loader import DataLoader
@@ -9,6 +17,25 @@ import matplotlib.pyplot as plt
 
 
 class BaseDrawer:
+    """Base class for all visualization drawers.
+
+    Drawers load data, configure components, apply styles, and generate
+    figures. Subclasses implement the draw() method for specific
+    visualization modes (global, separate, grouped, animation).
+
+    Attributes:
+        BAR_FORMAT: Progress bar format string for tqdm.
+        REGISTERED_COMPONENTS: Dict mapping component names to configs.
+
+    Args:
+        files: List of file paths to load data from.
+        components: Dict mapping component names to configuration dicts.
+            Each config must have a 'class' key with the component class name.
+        interpreter: Optional BaseInterpreter subclass. If None, uses
+            BaseInterpreter directly.
+        adapter: Optional DataAdapter for custom data loading.
+    """
+
     BAR_FORMAT = "{percentage:3.0f}%|{bar:50}| {n_fmt}/{total_fmt} [elap: {elapsed}s eta: {remaining}s]"
     REGISTERED_COMPONENTS = {}
 
@@ -26,10 +53,26 @@ class BaseDrawer:
         plt.switch_backend('agg')
 
     def set_style(self, name: str):
+        """Apply a named style preset to the visualization.
+
+        Args:
+            name: Style preset name ('paper', 'presentation', 'dark').
+
+        Returns:
+            self, for method chaining.
+        """
         self.style = get_style(name)
         return self
 
     def set_palette(self, name: str):
+        """Apply a named color palette to the visualization.
+
+        Args:
+            name: Palette name ('default', 'colorblind', 'vivid', 'muted').
+
+        Returns:
+            self, for method chaining.
+        """
         self.style.palette = get_palette(name)
         return self
 
@@ -50,18 +93,50 @@ class BaseDrawer:
         self.style.figsize = cls.FIGSIZE
 
     def set_id_list(self, id_list):
+        """Filter data to only include specified robot IDs.
+
+        Args:
+            id_list: List of robot IDs to include.
+
+        Returns:
+            self, for method chaining.
+        """
         self.interpreter = self.interpreter.for_robots(id_list)
         return self
 
     def set_first_seconds(self, first_seconds):
+        """Filter data to only include the first N seconds.
+
+        Args:
+            first_seconds: Number of seconds from start to include.
+
+        Returns:
+            self, for method chaining.
+        """
         self.interpreter = self.interpreter.for_first_seconds(first_seconds)
         return self
 
     def set_last_seconds(self, last_seconds):
+        """Filter data to only include the last N seconds.
+
+        Args:
+            last_seconds: Number of seconds from end to include.
+
+        Returns:
+            self, for method chaining.
+        """
         self.interpreter = self.interpreter.for_last_seconds(last_seconds)
         return self
 
     def set_time_range(self, time_range):
+        """Filter data to only include a specific time range.
+
+        Args:
+            time_range: Tuple of (start_time, end_time).
+
+        Returns:
+            self, for method chaining.
+        """
         self.interpreter = self.interpreter.for_time_range(time_range)
         return self
 

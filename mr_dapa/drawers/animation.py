@@ -1,3 +1,5 @@
+"""Animation drawer for time-based MP4 animations."""
+
 import numpy as np
 import tqdm
 import matplotlib.pyplot as plt
@@ -8,6 +10,11 @@ from ..helpers.grid_layout import GridLayout
 
 
 class AnimationDrawer(BaseDrawer):
+    """Drawer for creating MP4 animations of time-series data.
+
+    Generates MP4 animations showing how data evolves over time.
+    Supports blitting optimization when components return artists.
+    """
 
     def draw(self, plot_list, time_ratio=1, fps=50, save=False, path=None):
         self._check_plot_list(plot_list)

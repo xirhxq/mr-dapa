@@ -1,3 +1,26 @@
+"""Style configuration for plot appearance."""
+
+from dataclasses import dataclass, field
+from typing import List
+
+
+@dataclass
+class StyleConfig:
+    """Configuration for plot styling and export.
+
+    Attributes:
+        figsize: Figure size (width, height) in inches.
+        dpi: DPI for saved figures.
+        title_size: Font size for plot titles.
+        label_size: Font size for axis labels.
+        tick_size: Font size for tick labels.
+        line_width: Line width for plots.
+        palette: Color palette as list of hex codes.
+        format: Export format ('png', 'svg', 'pdf').
+        background: Background color ('white' or color name).
+        tight_layout: Whether to use tight layout.
+    """
+
 from dataclasses import dataclass, field
 
 

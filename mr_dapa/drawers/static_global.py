@@ -1,3 +1,5 @@
+"""Static global plot drawer."""
+
 import matplotlib.pyplot as plt
 
 from .base import BaseDrawer
@@ -5,6 +7,12 @@ from ..helpers.grid_layout import GridLayout
 
 
 class StaticGlobalPlotDrawer(BaseDrawer):
+    """Drawer for static plots with all robots in shared subplots.
+
+    Each component type gets one subplot, and all robots' data is
+    overlaid on that subplot. Useful for comparing robot behavior.
+    """
+
     def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
         self.decide_sole_figsize(plot_list)

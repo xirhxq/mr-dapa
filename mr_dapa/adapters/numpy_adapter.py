@@ -1,3 +1,33 @@
+"""NumPy adapter for loading data from NumPy arrays."""
+
+import numpy as np
+
+
+class NumPyAdapter:
+    """Adapter for converting NumPy arrays to canonical format.
+
+    Expects a dict mapping robot IDs to data arrays. Each robot's data
+    should have 'timestamps' and 'values' keys.
+
+    Example::
+        adapter = NumPyAdapter()
+        data = adapter.load({
+            1: {'timestamps': np.array([0, 1]), 'values': {'x': np.array([1, 2])}}
+        })
+    """
+
+    def load(self, source) -> list[dict]:
+        """Convert NumPy arrays to canonical format.
+
+        Args:
+            source: Dict mapping robot IDs to data dicts with arrays.
+
+        Returns:
+            List of dictionaries in canonical mr-dapa format.
+        """
+        if not isinstance(source, dict):
+            raise TypeError(f"NumPyAdapter expects a dict, got {type(source)}")
+
 import numpy as np
 
 

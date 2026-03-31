@@ -1,3 +1,21 @@
+"""Lines component for time-series line plots."""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from .base import BaseComponent
+
+
+class LinesComponent(BaseComponent):
+    """Time-series line plot component.
+
+    Draws line plots of values over time for each robot. Supports
+    multiple value keys on the same axes, fill between line and zero,
+    horizontal reference lines (bounds), and more.
+    """
+
+    FIGSIZE = (12, 6)
+    required_config_keys = {'keys': list}
+
 import numpy as np
 
 from .base import BaseComponent

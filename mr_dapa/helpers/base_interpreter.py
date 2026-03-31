@@ -1,7 +1,31 @@
+"""Base interpreter for data validation and filtering.
+
+This module provides BaseInterpreter, which validates data in canonical
+mr-dapa format and provides immutable filtered views via factory methods.
+"""
+
 import numpy as np
 
 
 class BaseInterpreter:
+    """Validates data and provides immutable filtered views.
+
+    The interpreter loads data in canonical mr-dapa format, validates it,
+    and provides factory methods for creating filtered views. All filtering
+    methods (for_robots, for_time_range, etc.) return new BaseInterpreter
+    instances rather than modifying the current one.
+
+    Attributes:
+        data: Filtered data in canonical format.
+        id_list: List of robot IDs in the filtered view.
+        time_range: Tuple of (start_time, end_time) for filtered view.
+
+    Args:
+        data: Data in canonical mr-dapa format.
+        id_list: Optional list of robot IDs to filter to.
+        time_range: Optional tuple of (start, end) times to filter to.
+    """
+
     def __init__(self, data, id_list=None, time_range=None):
         self._origin = data
         self._check_data(data)
@@ -19,16 +43,48 @@ class BaseInterpreter:
         self.data = self._filter_data(data, self.id_list, self.time_range)
 
     def for_robots(self, id_list):
+        """Return a new interpreter filtered to specified robot IDs.
+
+        Args:
+            id_list: List of robot IDs to include.
+
+        Returns:
+            New BaseInterpreter instance with filtered data.
+        """
         return BaseInterpreter(self._origin, id_list=id_list, time_range=self.time_range)
 
     def for_time_range(self, time_range):
+        """Return a new interpreter filtered to specified time range.
+
+        Args:
+            time_range: Tuple of (start_time, end_time).
+
+        Returns:
+            New BaseInterpreter instance with filtered data.
+        """
         return BaseInterpreter(self._origin, id_list=self.id_list, time_range=time_range)
 
     def for_first_seconds(self, seconds):
+        """Return a new interpreter for the first N seconds of data.
+
+        Args:
+            seconds: Number of seconds from the start to include.
+
+        Returns:
+            New BaseInterpreter instance with filtered data.
+        """
         full = self._full_time_range
         return self.for_time_range((full[0], min(full[1], full[0] + seconds)))
 
     def for_last_seconds(self, seconds):
+        """Return a new interpreter for the last N seconds of data.
+
+        Args:
+            seconds: Number of seconds from the end to include.
+
+        Returns:
+            New BaseInterpreter instance with filtered data.
+        """
         full = self._full_time_range
         return self.for_time_range((max(full[0], full[1] - seconds), full[1]))
 

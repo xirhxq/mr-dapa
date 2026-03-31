@@ -1,3 +1,23 @@
+"""Data loader for loading files with optional adapter."""
+
+from ..adapters import JSONAdapter
+from ..adapters.base import DataAdapter
+
+
+class DataLoader:
+    """Loads data files using the specified or default adapter.
+
+    Args:
+        files: Single file path (str) or list of file paths.
+        adapter: Optional DataAdapter instance. Defaults to JSONAdapter.
+
+    Attributes:
+        data: Loaded data in canonical format.
+        file: First file path (for single file) or first file in list.
+        folder: Directory containing the data files.
+        datas: List of loaded data objects (for multi-file mode).
+    """
+
 import os
 
 from ..adapters import JSONAdapter

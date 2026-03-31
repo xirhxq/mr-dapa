@@ -15,7 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Chain API**: `drawer.set_style('paper').set_palette('colorblind').draw([...])`
 - **SVG/PDF Export**: set `style.format = 'svg'` or `'pdf'` for vector output
 - **Dark Theme**: applies dark background and light text colors to all axes
+- **CI/CD**: GitHub Actions with test matrix (3.9-3.12), ruff lint, coverage reporting
+- **PyPI Publish**: automated release on tag push via Trusted Publisher (OIDC)
 - 18 new tests (145 total)
+- Published to https://pypi.org/project/mr-dapa/
 
 ## [0.3.0] - 2026-03-30
 

@@ -1,3 +1,20 @@
+"""Component registry for dynamic component registration."""
+
+from typing import Type, Dict
+
+
+_COMPONENT_REGISTRY: Dict[str, Type] = {}
+"""Global registry of component classes."""
+
+
+def register_component(name: str, cls: Type) -> None:
+    """Register a component class.
+
+    Args:
+        name: Name to register the component under.
+        cls: Component class (must inherit from BaseComponent).
+    """
+
 from difflib import get_close_matches
 from typing import Type
 

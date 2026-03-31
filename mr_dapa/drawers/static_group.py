@@ -1,3 +1,5 @@
+"""Static group plot drawer."""
+
 import matplotlib.pyplot as plt
 
 from .base import BaseDrawer
@@ -5,6 +7,13 @@ from ..helpers.grid_layout import GridLayout
 
 
 class StaticGroupPlotDrawer(BaseDrawer):
+    """Drawer for static plots with per-robot subplots in one figure.
+
+    Each robot gets its own set of subplots (one per component),
+    arranged in a grid within a single figure. Useful for comparing
+    multiple robots side-by-side.
+    """
+
     def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
 

@@ -1,3 +1,18 @@
+"""Grid layout manager for allocating matplotlib subplots."""
+
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from ..registry import get_component_class
+
+
+class GridLayout:
+    """Allocates matplotlib subplots based on component configuration.
+
+    Determines subplot arrangement based on component expand attributes
+    and the number of robots. Returns a list of axis configuration dicts
+    that can be used to instantiate components.
+    """
+
 import math
 from matplotlib.gridspec import GridSpec
 

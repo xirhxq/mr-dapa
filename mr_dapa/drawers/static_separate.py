@@ -1,3 +1,5 @@
+"""Static separate plot drawer."""
+
 import matplotlib.pyplot as plt
 
 from .base import BaseDrawer
@@ -5,6 +7,12 @@ from ..helpers.grid_layout import GridLayout
 
 
 class StaticSeparatePlotDrawer(BaseDrawer):
+    """Drawer for static plots with one figure per robot.
+
+    Creates a separate figure for each robot, with all components
+    displayed in that figure. Useful for individual robot analysis.
+    """
+
     def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
         self.decide_sole_figsize(plot_list)

@@ -1,13 +1,44 @@
+"""CSV adapter for loading data from CSV files."""
+
 import csv
 
 
 class CSVAdapter:
+    """Adapter for loading CSV files into mr-dapa canonical format.
+
+    Expects a CSV with columns for robot ID, timestamp, and one or more
+    value columns. By default, looks for 'id' and 'timestamp' columns,
+    with all other columns treated as value series.
+
+    Example::
+        adapter = CSVAdapter(id_col='robot_id', timestamp_col='time')
+        data = adapter.load('data.csv')
+    """
+
     def __init__(self, id_col='id', timestamp_col='timestamp', separator=','):
+        """Initialize CSV adapter.
+
+        Args:
+            id_col: Name of column containing robot IDs.
+            timestamp_col: Name of column containing timestamps.
+            separator: CSV delimiter character.
+        """
         self.id_col = id_col
         self.timestamp_col = timestamp_col
         self.separator = separator
 
     def load(self, source) -> list[dict]:
+        """Load data from CSV file.
+
+        Args:
+            source: Path to CSV file.
+
+        Returns:
+            List of dictionaries in canonical mr-dapa format.
+
+        Raises:
+            TypeError: If source is not a string.
+        """
         if not isinstance(source, str):
             raise TypeError(f"CSVAdapter expects a file path, got {type(source)}")
 

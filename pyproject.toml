@@ -16,6 +16,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "ruff"]
 all = ["ffmpeg-python"]
+docs = ["sphinx>=7.0", "furo>=2023.0", "sphinx-gallery>=0.14"]
 
 [tool.ruff]
 target-version = "py39"
