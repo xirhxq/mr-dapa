@@ -51,6 +51,8 @@ mrdp.AnimationDrawer(files=['data.json'], components=components) \
 | `MapComponent` | 2D position map with trails |
 | `ScatterComponent` | Scatter/phase plot (x vs y) |
 | `FillComponent` | Filled area between values |
+| `HeatmapComponent` | 2D density heatmap |
+| `Map3DComponent` | 3D position map with trajectories |
 
 ### Adapters
 
@@ -59,6 +61,16 @@ from mr_dapa import CSVAdapter, MultiFileAdapter, NumPyAdapter
 
 loader = mrdp.StaticGlobalPlotDrawer(files=['data.csv'], components=components, adapter=CSVAdapter())
 loader = mrdp.StaticGlobalPlotDrawer(files=['r1.json', 'r2.json'], components=components, adapter=MultiFileAdapter())
+```
+
+### Interactive Menu
+
+Install with `[menu]` extra and use `run_interactive_session()` for quick interactive visualization:
+
+```python
+from mr_dapa import run_interactive_session
+
+run_interactive_session(data_folder="data", file_pattern="*.json")
 ```
 
 ## Data Format
@@ -87,8 +99,9 @@ Canonical JSON format (each robot has its own timestamp array — supports async
 ## Installation
 
 ```bash
-pip install -e .
-pip install -e ".[dev]"   # includes pytest, ruff
+pip install mr-dapa
+pip install mr-dapa[menu]   # includes basic-interactive-menu for interactive CLI
+pip install -e ".[dev]"    # development: pytest, ruff
 ```
 
 ## Testing
