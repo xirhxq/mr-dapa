@@ -71,7 +71,6 @@ class ScatterComponent(BaseComponent):
             )
             self.anim_markers[robot_id] = anim_marker
 
-            data = self.robot_data[robot_id]
             self.scatter_plots[robot_id].set_data([], [])
 
     def update(self, timestamp):

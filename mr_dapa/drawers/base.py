@@ -1,15 +1,11 @@
 import os
 
-from ..helpers.grid_layout import GridLayout
 from ..helpers.loader import DataLoader
 from ..helpers.base_interpreter import BaseInterpreter
 from ..registry import get_component_class, list_components
 from ..style import StyleConfig, get_style, get_palette
 
-import numpy as np
-import tqdm
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
 
 class BaseDrawer:

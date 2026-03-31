@@ -1,4 +1,7 @@
-from .base import *
+import matplotlib.pyplot as plt
+
+from .base import BaseDrawer
+from ..helpers.grid_layout import GridLayout
 
 
 class StaticGroupPlotDrawer(BaseDrawer):
@@ -20,7 +23,7 @@ class StaticGroupPlotDrawer(BaseDrawer):
             sub_interp = self.interpreter.for_robots(item["id_list"])
             component_class = self._check_class(item["class"])
             item["mode"] = 'group'
-            component = component_class(
+            component_class(
                 interpreter=sub_interp,
                 **item
             )

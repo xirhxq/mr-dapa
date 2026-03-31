@@ -1,5 +1,5 @@
-from .base import BaseComponent
-from .lines import LinesComponent
-from .map import MapComponent
-from .scatter import ScatterComponent
-from .fill import FillComponent
+from .base import BaseComponent as BaseComponent
+from .lines import LinesComponent as LinesComponent
+from .map import MapComponent as MapComponent
+from .scatter import ScatterComponent as ScatterComponent
+from .fill import FillComponent as FillComponent

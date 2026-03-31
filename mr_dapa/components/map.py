@@ -87,7 +87,6 @@ class MapComponent(BaseComponent):
 
     def _animation_setup(self):
         for robot_id in self.robot_data:
-            data = self.robot_data[robot_id]
             self.trail_lines[robot_id].set_data([], [])
             self.robot_markers[robot_id].set_data([np.nan], [np.nan])
             self.robot_annotations[robot_id].set_position((np.nan, np.nan))

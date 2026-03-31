@@ -1,4 +1,10 @@
-from .base import *
+import numpy as np
+import tqdm
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+from .base import BaseDrawer
+from ..helpers.grid_layout import GridLayout
 
 
 class AnimationDrawer(BaseDrawer):
