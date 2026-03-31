@@ -1,5 +1,4 @@
 import json
-import pytest
 
 from mr_dapa.helpers.loader import DataLoader
 
@@ -41,5 +40,5 @@ class TestDataLoaderJSON:
     def test_file_handle_closed(self, tmp_path, sample_data):
         data_file = tmp_path / 'data.json'
         data_file.write_text(json.dumps(sample_data))
-        loader = DataLoader(str(data_file))
+        DataLoader(str(data_file))
         data_file.write_text(json.dumps(sample_data))

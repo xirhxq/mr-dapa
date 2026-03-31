@@ -1,5 +1,4 @@
 import pytest
-import numpy as np
 
 from mr_dapa.helpers.base_interpreter import BaseInterpreter
 
