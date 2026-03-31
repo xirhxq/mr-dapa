@@ -1,8 +1,7 @@
 """Grid layout manager for allocating matplotlib subplots."""
 
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-from ..registry import get_component_class
+import math
+from matplotlib.gridspec import GridSpec
 
 
 class GridLayout:
@@ -13,11 +12,6 @@ class GridLayout:
     that can be used to instantiate components.
     """
 
-import math
-from matplotlib.gridspec import GridSpec
-
-
-class GridLayout:
     def __init__(self, fig, plot_list, registered_components, expand=True, id_list=None, **kwargs):
         self.fig = fig
         self.plot_list = plot_list

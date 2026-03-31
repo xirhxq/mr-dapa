@@ -1,10 +1,9 @@
 """Component registry for dynamic component registration."""
 
-from typing import Type, Dict
+from difflib import get_close_matches
+from typing import Type
 
-
-_COMPONENT_REGISTRY: Dict[str, Type] = {}
-"""Global registry of component classes."""
+_COMPONENT_REGISTRY: dict[str, Type] = {}
 
 
 def register_component(name: str, cls: Type) -> None:
@@ -14,14 +13,6 @@ def register_component(name: str, cls: Type) -> None:
         name: Name to register the component under.
         cls: Component class (must inherit from BaseComponent).
     """
-
-from difflib import get_close_matches
-from typing import Type
-
-_COMPONENT_REGISTRY: dict[str, Type] = {}
-
-
-def register_component(name: str, cls: Type) -> None:
     if not isinstance(name, str) or not name:
         raise ValueError(f"Component name must be a non-empty string, got {name!r}")
     if not isinstance(cls, type):

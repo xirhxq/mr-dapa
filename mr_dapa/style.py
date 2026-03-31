@@ -1,7 +1,6 @@
 """Style configuration for plot appearance."""
 
 from dataclasses import dataclass, field
-from typing import List
 
 
 @dataclass
@@ -21,11 +20,6 @@ class StyleConfig:
         tight_layout: Whether to use tight layout.
     """
 
-from dataclasses import dataclass, field
-
-
-@dataclass
-class StyleConfig:
     figsize: tuple = (16, 9)
     dpi: int = 300
     tight_layout: bool = True

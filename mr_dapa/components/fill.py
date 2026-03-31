@@ -1,7 +1,6 @@
 """Fill component for filled area plots."""
 
 import numpy as np
-import matplotlib.pyplot as plt
 from .base import BaseComponent
 
 
@@ -12,15 +11,6 @@ class FillComponent(BaseComponent):
     confidence intervals, uncertainty bounds, or value ranges.
     """
 
-    FIGSIZE = (12, 6)
-    required_config_keys = {'keys': list}
-
-import numpy as np
-
-from .base import BaseComponent
-
-
-class FillComponent(BaseComponent):
     FIGSIZE = (6, 6)
     expand = True
     required_config_keys = {'keys': list}

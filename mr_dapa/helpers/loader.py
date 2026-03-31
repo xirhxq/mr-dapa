@@ -1,7 +1,7 @@
 """Data loader for loading files with optional adapter."""
 
+import os
 from ..adapters import JSONAdapter
-from ..adapters.base import DataAdapter
 
 
 class DataLoader:
@@ -18,12 +18,6 @@ class DataLoader:
         datas: List of loaded data objects (for multi-file mode).
     """
 
-import os
-
-from ..adapters import JSONAdapter
-
-
-class DataLoader:
     def __init__(self, files, adapter=None):
         self.files = files if isinstance(files, list) else [files]
         self.folders = [os.path.dirname(f) for f in self.files]

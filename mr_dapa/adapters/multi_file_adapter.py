@@ -23,14 +23,6 @@ class MultiFileAdapter:
         Returns:
             Merged list of dictionaries in canonical format.
         """
-        if not isinstance(source, list):
-            raise TypeError(f"MultiFileAdapter expects a list of file paths, got {type(source)}")
-
-import json
-
-
-class MultiFileAdapter:
-    def load(self, source) -> list[dict]:
         if isinstance(source, list) and len(source) > 0 and isinstance(source[0], str):
             merged = []
             for path in source:

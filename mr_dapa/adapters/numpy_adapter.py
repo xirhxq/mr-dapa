@@ -28,14 +28,6 @@ class NumPyAdapter:
         if not isinstance(source, dict):
             raise TypeError(f"NumPyAdapter expects a dict, got {type(source)}")
 
-import numpy as np
-
-
-class NumPyAdapter:
-    def load(self, source) -> list[dict]:
-        if not isinstance(source, dict):
-            raise TypeError(f"NumPyAdapter expects a dict, got {type(source)}")
-
         result = []
         for robot_id, robot_data in source.items():
             robot_id = int(robot_id)

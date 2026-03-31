@@ -1,7 +1,6 @@
 """Lines component for time-series line plots."""
 
 import numpy as np
-import matplotlib.pyplot as plt
 from .base import BaseComponent
 
 
@@ -14,14 +13,6 @@ class LinesComponent(BaseComponent):
     """
 
     FIGSIZE = (12, 6)
-    required_config_keys = {'keys': list}
-
-import numpy as np
-
-from .base import BaseComponent
-
-
-class LinesComponent(BaseComponent):
     required_config_keys = {'keys': list}
 
     def __init__(self, ax, interpreter, title="", keys=None, mode='static', **kwargs):
