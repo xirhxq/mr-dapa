@@ -93,7 +93,13 @@
 
 ---
 
-## Phase 10: InteractiveMenu Integration (Low)
+## Phase 10: Component Enhancements ~~(Low)~~ ✅ (0.6.0)
+
+- [x] MapComponent `show_trail` toggle for trajectory visibility
+- [x] HeatmapComponent for 2D density visualization
+- [x] Map3DComponent for 3D position visualization
+
+## Phase 11: InteractiveMenu Integration (Low)
 
 - Integrate `basic-interactive-menu` as `mr_dapa.menu` subpackage
 
@@ -101,21 +107,21 @@
 
 ## Remaining TODO (from original README)
 
-- [ ] Toggle trace showing in 2D map (MapComponent `trail_style` toggle)
-- [ ] Heatmap component
-- [ ] Example with data transforming from other formats (CSV/NumPy adapter examples)
-- [ ] 3D map
+- [x] Toggle trace showing in 2D map (MapComponent `trail_style` toggle) ✅ Phase 10
+- [x] Heatmap component ✅ Phase 10
+- [x] Example with data transforming from other formats (CSV/NumPy adapter examples) ✅ Phase 9
+- [x] 3D map ✅ Phase 10
 
 ---
 
 ## Dependencies
 
 ```
-Phase 1-9 ✅ COMPLETE
-Phase 10 (InteractiveMenu) ← Next
+Phase 1-10 ✅ COMPLETE
+Phase 11 (InteractiveMenu) ← Next
 ```
 
-**Next: Phase 10 (InteractiveMenu Integration)**
+**Next: Phase 11 (InteractiveMenu Integration)**
 
 ---
 

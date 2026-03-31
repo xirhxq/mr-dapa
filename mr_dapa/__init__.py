@@ -9,7 +9,7 @@ Main exports:
     Drawers: StaticGlobalPlotDrawer, StaticSeparatePlotDrawer,
         StaticGroupPlotDrawer, AnimationDrawer
     Components: LinesComponent, MapComponent, ScatterComponent,
-        FillComponent, BaseComponent
+        FillComponent, HeatmapComponent, Map3DComponent, BaseComponent
     Adapters: DataAdapter, JSONAdapter, CSVAdapter, MultiFileAdapter,
         NumPyAdapter
     Registry: register_component, unregister_component,
@@ -29,6 +29,8 @@ from .components.components import (
     MapComponent,
     ScatterComponent,
     FillComponent,
+    HeatmapComponent,
+    Map3DComponent,
 )
 
 from .adapters import (
@@ -50,7 +52,7 @@ from .components.base import BaseComponent
 
 from .style import StyleConfig, get_style, get_palette
 
-__version__ = '0.5.1'
+__version__ = '0.6.0'
 
 __all__ = [
     'StaticGlobalPlotDrawer',
@@ -61,6 +63,8 @@ __all__ = [
     'MapComponent',
     'ScatterComponent',
     'FillComponent',
+    'HeatmapComponent',
+    'Map3DComponent',
     'BaseComponent',
     'DataAdapter',
     'JSONAdapter',

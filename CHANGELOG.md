@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-03-31
+
+### Added
+
+- **HeatmapComponent**: 2D density heatmap for visualizing spatial distribution of robot positions
+- **Map3DComponent**: 3D position map with trajectories and camera angle control
+
+### Changed
+
+- **MapComponent**: Added `show_trail` config option to toggle trajectory visibility
+- **MapComponent**: Added `x_key` and `y_key` config options for custom field names
+- All new components registered in builtin component registry
+- Public API now exports 6 components (Lines, Map, Scatter, Fill, Heatmap, Map3D)
+
 ## [0.5.1] - 2026-03-31
 
 ### Fixed
