@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-03-31
+
+### Added
+
+- **Documentation**: Sphinx API docs with autodoc and Napoleon Google-style docstrings
+- **User Guides**: quickstart, data format, components, drawers, adapters, styling, custom components
+- **Example Gallery**: 7 new examples (csv_adapter, numpy_adapter, multi_file, all_components, all_draw_modes, publication_style, chain_api)
+- **Code Docstrings**: Google-style docstrings on all 20 public modules
+- **CI/CD**: docs workflow for building and deploying documentation to GitHub Pages
+- **pyproject.toml**: docs optional dependency (sphinx, furo, sphinx-gallery)
+
+### Changed
+
+- Fixed with_menu example with proper imports and error handling
+- Removed generate_data.py from .gitignore (examples now include data generation)
+
 ## [0.4.0] - 2026-03-31
 
 ### Added
