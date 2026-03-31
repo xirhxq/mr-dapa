@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2026-03-31
+
+### Added
+
+- **Menu Integration**: basic-interactive-menu integration for interactive CLI visualization
+- `create_visualization_menu()`: Helper function to build visualization selection menus
+- `run_interactive_session()`: Quick-start function for interactive visualization sessions
+- `get_drawer_class()`: Utility to map visualization types to drawer classes
+- Optional `[menu]` dependency: `pip install mr-dapa[menu]`
+
+### Changed
+
+- Simplified `examples/with_menu/main.py` to use new menu integration
+- Menu functions gracefully handle missing basic-interactive-menu package
+
 ## [0.6.0] - 2026-03-31
 
 ### Added

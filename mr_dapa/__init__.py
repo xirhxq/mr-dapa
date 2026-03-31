@@ -15,6 +15,7 @@ Main exports:
     Registry: register_component, unregister_component,
         get_component_class, list_components
     Style: StyleConfig, get_style, get_palette
+    Menu: run_interactive_session (requires [menu] extra)
 """
 
 from .drawers.drawers import (
@@ -52,7 +53,13 @@ from .components.base import BaseComponent
 
 from .style import StyleConfig, get_style, get_palette
 
-__version__ = '0.6.0'
+try:
+    from .menu import run_interactive_session  # noqa: F401
+    _menu_available = True
+except ImportError:
+    _menu_available = False
+
+__version__ = '0.7.0'
 
 __all__ = [
     'StaticGlobalPlotDrawer',
@@ -79,3 +86,6 @@ __all__ = [
     'get_style',
     'get_palette',
 ]
+
+if _menu_available:
+    __all__.extend(['run_interactive_session'])

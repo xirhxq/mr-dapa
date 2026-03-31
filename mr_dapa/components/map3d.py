@@ -1,7 +1,6 @@
 """3D map component for 3D position visualization."""
 
 import numpy as np
-import matplotlib.pyplot as plt
 from .base import BaseComponent
 
 
@@ -71,8 +70,6 @@ class Map3DComponent(BaseComponent):
         self._initialize()
 
     def _initialize(self):
-        from mpl_toolkits.mplot3d import Axes3D
-
         fig = self.ax.figure
         position = self.ax.get_position()
         self.ax.remove()

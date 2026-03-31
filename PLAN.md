@@ -99,9 +99,12 @@
 - [x] HeatmapComponent for 2D density visualization
 - [x] Map3DComponent for 3D position visualization
 
-## Phase 11: InteractiveMenu Integration (Low)
+## Phase 11: InteractiveMenu Integration ~~(Low)~~ ✅ (0.7.0)
 
-- Integrate `basic-interactive-menu` as `mr_dapa.menu` subpackage
+- [x] Add basic-interactive-menu as optional dependency ([menu] extra)
+- [x] Create mr_dapa/menu.py with helper functions
+- [x] Export create_visualization_menu and run_interactive_session
+- [x] Update examples/with_menu to use new integration
 
 ---
 
@@ -117,11 +120,10 @@
 ## Dependencies
 
 ```
-Phase 1-10 ✅ COMPLETE
-Phase 11 (InteractiveMenu) ← Next
+Phase 1-11 ✅ COMPLETE
 ```
 
-**Next: Phase 11 (InteractiveMenu Integration)**
+**All planned phases complete!**
 
 ---
 

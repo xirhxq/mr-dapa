@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mr-dapa"
-version = "0.6.0"
+version = "0.7.0"
 description = "Multi-Robot Data Animation & Plotting Assistance"
 requires-python = ">=3.9"
 dependencies = [
@@ -17,6 +17,7 @@ dependencies = [
 dev = ["pytest", "pytest-cov", "ruff"]
 all = ["ffmpeg-python"]
 docs = ["sphinx>=7.0", "furo>=2023.0", "sphinx-gallery>=0.14"]
+menu = ["basic-interactive-menu>=0.4.0"]
 
 [tool.ruff]
 target-version = "py39"
