@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-03-31
+
+### Added
+
+- **Style System**: `StyleConfig` dataclass with presets, palettes, and export control
+- **3 Presets**: `paper` (8x6, high DPI), `presentation` (16x9, bold), `dark` (dark background)
+- **4 Palettes**: `default`, `colorblind` (Wong), `vivid`, `muted`
+- **Chain API**: `drawer.set_style('paper').set_palette('colorblind').draw([...])`
+- **SVG/PDF Export**: set `style.format = 'svg'` or `'pdf'` for vector output
+- **Dark Theme**: applies dark background and light text colors to all axes
+- 18 new tests (145 total)
+
 ## [0.3.0] - 2026-03-30
 
 ### Added
