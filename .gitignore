@@ -209,5 +209,9 @@ __marimo__/
 *.png
 *.mp4
 
+# Example data files (users generate them locally)
+examples/*/data.json
+examples/*/data/*.json
+
 !.github/
 .*
