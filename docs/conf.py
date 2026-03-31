@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'mr-dapa'
 copyright = '2025, mr-dapa contributors'
 author = 'mr-dapa contributors'
-release = '0.4.0'
+release = '0.5.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
