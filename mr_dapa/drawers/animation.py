@@ -5,13 +5,12 @@ class AnimationDrawer(BaseDrawer):
 
     def draw(self, plot_list, time_ratio=1, fps=50, save=False, path=None):
         self._check_plot_list(plot_list)
-
         self.decide_sole_figsize(plot_list)
 
         fps = min(self.interpreter.get_fps(), fps)
 
-        fig = plt.figure(figsize=self.FIGSIZE)
-        fig.set_tight_layout(True)
+        fig = plt.figure(figsize=self.style.figsize)
+        self._apply_style_to_fig(fig)
 
         axes_map = GridLayout(
             fig,
@@ -32,6 +31,7 @@ class AnimationDrawer(BaseDrawer):
                     **item
                 )
             )
+            self._apply_style_to_ax(item.get("ax"))
 
         interval = 1 / fps * time_ratio
         interval_ms = int(interval * 1000)

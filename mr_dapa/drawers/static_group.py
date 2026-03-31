@@ -5,8 +5,8 @@ class StaticGroupPlotDrawer(BaseDrawer):
     def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
 
-        fig = plt.figure(figsize=self.FIGSIZE)
-        fig.set_tight_layout(True)
+        fig = plt.figure(figsize=self.style.figsize)
+        self._apply_style_to_fig(fig)
 
         axes_map = GridLayout(
             fig,
@@ -24,6 +24,7 @@ class StaticGroupPlotDrawer(BaseDrawer):
                 interpreter=sub_interp,
                 **item
             )
+            self._apply_style_to_ax(item.get("ax"))
 
         if save or path:
             filename = self._save_figure(fig, plot_list, grouped=True, path=path)

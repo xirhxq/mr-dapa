@@ -29,7 +29,9 @@ from .registry import (
 
 from .components.base import BaseComponent
 
-__version__ = '0.3.0'
+from .style import StyleConfig, get_style, get_palette
+
+__version__ = '0.4.0'
 
 __all__ = [
     'StaticGlobalPlotDrawer',
@@ -50,4 +52,7 @@ __all__ = [
     'unregister_component',
     'get_component_class',
     'list_components',
+    'StyleConfig',
+    'get_style',
+    'get_palette',
 ]

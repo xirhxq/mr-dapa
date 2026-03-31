@@ -1,10 +1,10 @@
 import os
-import json
 
 from ..helpers.grid_layout import GridLayout
 from ..helpers.loader import DataLoader
 from ..helpers.base_interpreter import BaseInterpreter
 from ..registry import get_component_class, list_components
+from ..style import StyleConfig, get_style, get_palette
 
 import numpy as np
 import tqdm
@@ -14,8 +14,6 @@ import matplotlib.animation as animation
 
 class BaseDrawer:
     BAR_FORMAT = "{percentage:3.0f}%|{bar:50}| {n_fmt}/{total_fmt} [elap: {elapsed}s eta: {remaining}s]"
-    DPI = 300
-    FIGSIZE = (16, 9)
     REGISTERED_COMPONENTS = {}
 
     def __init__(self, files: list[str], components: dict, interpreter=None, adapter=None):
@@ -27,8 +25,17 @@ class BaseDrawer:
         self._validate_components(components)
 
         self.interpreter = BaseInterpreter(self.data) if interpreter is None else interpreter(self.data)
+        self.style = StyleConfig()
 
         plt.switch_backend('agg')
+
+    def set_style(self, name: str):
+        self.style = get_style(name)
+        return self
+
+    def set_palette(self, name: str):
+        self.style.palette = get_palette(name)
+        return self
 
     def _validate_components(self, components: dict) -> None:
         for name, config in components.items():
@@ -44,7 +51,7 @@ class BaseDrawer:
         if len(plot_list) > 1:
             return
         cls = get_component_class(self.REGISTERED_COMPONENTS[plot_list[0]]['class'])
-        self.FIGSIZE = cls.FIGSIZE
+        self.style.figsize = cls.FIGSIZE
 
     def set_id_list(self, id_list):
         self.interpreter = self.interpreter.for_robots(id_list)
@@ -86,15 +93,22 @@ class BaseDrawer:
             os.makedirs(folder)
         return os.path.join(folder, plot_name)
 
+    def _get_export_extension(self):
+        fmt = self.style.format
+        if fmt in ('svg', 'pdf'):
+            return f'.{fmt}'
+        return '.png'
+
     def _save_figure(self, fig, plot_list, id_list=None, grouped=False, path=None):
+        ext = self._get_export_extension()
         if path:
             filename = path
         else:
             filename = self._make_file(self._make_filename(plot_list, id_list))
             if grouped:
                 filename += '-grouped'
-            filename += '.png'
-        fig.savefig(filename, dpi=self.DPI, bbox_inches='tight')
+            filename += ext
+        fig.savefig(filename, dpi=self.style.dpi, bbox_inches='tight', format=self.style.format)
         return filename
 
     def _save_animation(self, ani, plot_list, id_list, time_ratio, fps, path=None):
@@ -104,9 +118,34 @@ class BaseDrawer:
             filename = self._make_file(self._make_filename(plot_list, id_list))
             fps_str = f'{fps:.1f}' if fps < 1 else f'{fps:.0f}'
             filename += f'-{time_ratio:.1g}x-{fps_str}fps.mp4'
-        ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.DPI)
+        ani.save(filename, writer='ffmpeg', fps=fps, dpi=self.style.dpi)
         return filename
 
     def _make_filename(self, plot_list, id_list=None):
         filename = '-'.join([self.REGISTERED_COMPONENTS[plot_type]["filename"] if "filename" in self.REGISTERED_COMPONENTS[plot_type] else plot_type for plot_type in plot_list])
         return filename + self.interpreter.get_id_suffix(id_list=id_list)
+
+    def _apply_style_to_fig(self, fig):
+        if self.style.background != 'white':
+            fig.set_facecolor(self.style.background)
+        if self.style.tight_layout:
+            fig.set_tight_layout(True)
+
+    def _apply_style_to_ax(self, ax):
+        ax.title.set_fontsize(self.style.title_size)
+        ax.xaxis.label.set_fontsize(self.style.label_size)
+        ax.yaxis.label.set_fontsize(self.style.label_size)
+        ax.tick_params(labelsize=self.style.tick_size)
+        if self.style.background != 'white':
+            ax.set_facecolor(self.style.background)
+            ax.title.set_color('white')
+            ax.xaxis.label.set_color('white')
+            ax.yaxis.label.set_color('white')
+            ax.tick_params(colors='white')
+            for spine in ax.spines.values():
+                spine.set_color('white')
+
+    def _get_robot_color(self, robot_index):
+        if self.style.palette:
+            return self.style.palette[robot_index % len(self.style.palette)]
+        return None

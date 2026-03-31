@@ -4,14 +4,13 @@ from .base import *
 class StaticSeparatePlotDrawer(BaseDrawer):
     def draw(self, plot_list, save=False, path=None):
         self._check_plot_list(plot_list)
-
         self.decide_sole_figsize(plot_list)
 
         figs = []
 
         for id in self.interpreter.id_list:
-            fig = plt.figure(figsize=self.FIGSIZE)
-            fig.set_tight_layout(True)
+            fig = plt.figure(figsize=self.style.figsize)
+            self._apply_style_to_fig(fig)
 
             sub_interp = self.interpreter.for_robots([id])
 
@@ -31,6 +30,7 @@ class StaticSeparatePlotDrawer(BaseDrawer):
                     interpreter=item_interp,
                     **item,
                 )
+                self._apply_style_to_ax(item.get("ax"))
 
             figs.append(fig)
 
