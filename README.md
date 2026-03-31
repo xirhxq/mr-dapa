@@ -91,6 +91,16 @@ pip install -e .
 pip install -e ".[dev]"   # includes pytest, ruff
 ```
 
+## Testing
+
+```bash
+pytest tests/               # 145 tests
+pytest tests/ -v             # verbose
+pytest tests/ -k "adapter"   # filter by name
+```
+
+Test structure: `conftest.py` provides shared fixtures (sample_data, interpreter, components_config). Each `test_*.py` covers one module.
+
 ## License
 
 MIT
