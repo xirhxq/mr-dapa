@@ -20,3 +20,11 @@ Adapters
 .. automodule:: mr_dapa.adapters.multi_file_adapter
     :members:
     :undoc-members:
+
+.. automodule:: mr_dapa.adapters.simulation_log_adapter
+    :members:
+    :undoc-members:
+
+.. automodule:: mr_dapa.adapters.parametric_study_adapter
+    :members:
+    :undoc-members:
