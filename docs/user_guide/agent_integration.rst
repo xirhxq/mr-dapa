@@ -216,6 +216,30 @@ adapted canonical data:
    data = mrdp.ParametricStudyAdapter().load('summary.json')
    components = mrdp.suggest_components(data)
 
+Pride Versioning
+----------------
+
+From version ``1.0.0`` onward, mr-dapa uses the project's Pride versioning
+convention for public releases. For AGENT work, treat a Pride release as a
+coherent capability milestone: the code should be tested, documented, usable by
+another agent without hidden context, and something the maintainers are
+comfortable presenting publicly.
+
+Use ``MAJOR.MINOR.PATCH`` numbers with these rules:
+
+* bump ``MAJOR`` when the public API, canonical data format, drawer/component
+  contracts, or adapter behavior changes in a way that downstream integrations
+  must actively adjust to
+* bump ``MINOR`` when adding compatible adapters, components, drawers, styles,
+  examples, or AGENT helper APIs
+* bump ``PATCH`` for compatible bug fixes, documentation corrections, packaging
+  fixes, and small behavior repairs
+
+Before recommending a release, verify the version in ``pyproject.toml`` and
+``mr_dapa.__version__`` match, update ``CHANGELOG.md``, run the full test and
+documentation checks, and keep local handoff or generated visual assets out of
+the commit.
+
 Validation Checklist
 --------------------
 

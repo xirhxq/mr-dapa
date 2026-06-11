@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+From 1.0.0 onward, release decisions also follow the project's Pride versioning
+convention: a public version should represent a maintainable, documented, and
+agent-integrable state that the maintainers are comfortable presenting as a
+coherent capability milestone.
+
+## [1.0.0] - 2026-06-11
+
+### Added
+
+- **SimulationLogAdapter** for frame-based multi-robot simulation logs.
+- **ParametricStudyAdapter** for parameter sweep summaries.
+- **SearchHeatmapComponent** for first-search-time grid visualization.
+- **PairDistanceComponent** for inter-robot distance, bounds, and uncertainty diagnostics.
+- **Agent inspection helpers**: `inspect_data()` and `suggest_components()`.
+- **Agent integration guide** for connecting user simulators and algorithms quickly.
+- Example projects for simulation logs and parametric studies.
+
+### Changed
+
+- **GridLayout** now keeps multiple global components separate when mixed with line components.
+- **LinesComponent** supports `xlabel`, `ylabel`, and `show_legend=False`.
+- Explicit style presets keep their configured figure size for single-component plots.
+- Figure export now respects `StyleConfig.bbox_inches`.
+- README and API docs now describe the expanded adapter/component surface.
+
+### Fixed
+
+- Corrected `NumPyAdapter` documentation to use `timestamp`.
+- Cleaned generated example output handling through `.gitignore`.
+- Explicitly limited setuptools package discovery to `mr_dapa*`.
+
 ## [0.7.0] - 2026-03-31
 
 ### Added

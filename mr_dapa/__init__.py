@@ -67,7 +67,7 @@ try:
 except ImportError:
     _menu_available = False
 
-__version__ = '0.7.0'
+__version__ = '1.0.0'
 
 __all__ = [
     'StaticGlobalPlotDrawer',
