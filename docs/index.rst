@@ -14,6 +14,7 @@ A Python library for rapid visualization of multi-agent time-series data.
    user_guide/components
    user_guide/drawers
    user_guide/adapters
+   user_guide/agent_integration
    user_guide/styling
    user_guide/custom_components
    examples/index
@@ -28,6 +29,7 @@ API Reference
    api/components
    api/drawers
    api/helpers
+   api/inspection
    api/registry
 
 
