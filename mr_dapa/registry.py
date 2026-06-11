@@ -51,8 +51,19 @@ def _register_builtins() -> None:
     from .components.fill import FillComponent
     from .components.heatmap import HeatmapComponent
     from .components.map3d import Map3DComponent
+    from .components.search_heatmap import SearchHeatmapComponent
+    from .components.pair_distance import PairDistanceComponent
 
-    for cls in [LinesComponent, MapComponent, ScatterComponent, FillComponent, HeatmapComponent, Map3DComponent]:
+    for cls in [
+        LinesComponent,
+        MapComponent,
+        ScatterComponent,
+        FillComponent,
+        HeatmapComponent,
+        Map3DComponent,
+        SearchHeatmapComponent,
+        PairDistanceComponent,
+    ]:
         register_component(cls.__name__, cls)
 
 

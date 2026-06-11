@@ -50,5 +50,7 @@ If your data is in a different format, use one of the built-in adapters:
 * :class:`~mr_dapa.CSVAdapter` - Load from CSV files
 * :class:`~mr_dapa.MultiFileAdapter` - Merge multiple JSON files
 * :class:`~mr_dapa.NumPyAdapter` - Load from NumPy arrays
+* :class:`~mr_dapa.SimulationLogAdapter` - Load frame-based simulator logs
+* :class:`~mr_dapa.ParametricStudyAdapter` - Load parameter sweep summaries
 
 See :doc:`adapters` for more details.

@@ -94,6 +94,17 @@ class TestDrawerStyleAPI:
         assert result is drawer
         assert drawer.style.figsize == (8, 6)
 
+    def test_explicit_style_keeps_figsize_for_single_plot(self, tmp_path, sample_data, components_config):
+        import json
+        data_file = tmp_path / "data.json"
+        data_file.write_text(json.dumps(sample_data))
+
+        from mr_dapa import StaticGlobalPlotDrawer
+        drawer = StaticGlobalPlotDrawer(files=[str(data_file)], components=components_config)
+        fig = drawer.set_style('paper').draw(['x'])
+
+        assert tuple(fig.get_size_inches()) == pytest.approx((8, 6))
+
     def test_set_palette_chain(self, tmp_path, sample_data, components_config):
         import json
         data_file = tmp_path / "data.json"

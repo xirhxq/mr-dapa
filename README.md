@@ -1,6 +1,7 @@
 # mr-dapa — Multi-Robot Data Animation & Plotting Assistance
 
-Rapid visualization of multi-agent time-series data. Researchers have N robots' timestamped data (possibly async, possibly from different sources) and need to quickly generate static plots and animations.
+Rapid visualization of multi-agent time-series data. Researchers have N robots'
+timestamped data and need to quickly generate static plots and animations.
 
 ## Quick Start
 
@@ -53,14 +54,44 @@ mrdp.AnimationDrawer(files=['data.json'], components=components) \
 | `FillComponent` | Filled area between values |
 | `HeatmapComponent` | 2D density heatmap |
 | `Map3DComponent` | 3D position map with trajectories |
+| `SearchHeatmapComponent` | First-search-time grid heatmap |
+| `PairDistanceComponent` | Inter-robot distance and safety/communication range plots |
 
 ### Adapters
 
 ```python
-from mr_dapa import CSVAdapter, MultiFileAdapter, NumPyAdapter
+from mr_dapa import CSVAdapter, MultiFileAdapter, NumPyAdapter, SimulationLogAdapter, ParametricStudyAdapter
 
 loader = mrdp.StaticGlobalPlotDrawer(files=['data.csv'], components=components, adapter=CSVAdapter())
 loader = mrdp.StaticGlobalPlotDrawer(files=['r1.json', 'r2.json'], components=components, adapter=MultiFileAdapter())
+loader = mrdp.StaticGlobalPlotDrawer(files=['sim/data.json'], components=components, adapter=SimulationLogAdapter())
+loader = mrdp.StaticGlobalPlotDrawer(files=['summary.json'], components=components, adapter=ParametricStudyAdapter())
+```
+
+`SimulationLogAdapter` is for frame-based simulation logs with
+`state[*].runtime` and `state[*].robots[*]`. It extracts robot state,
+control inputs, CBF-like metric dictionaries, link-denial metrics, and global
+search coverage so existing line/map components can plot real simulation runs
+quickly.
+
+`ParametricStudyAdapter` is for parameter sweep summaries with a
+`parametric_study` object. It maps parameter values onto the canonical x-axis
+and exposes metrics such as `final_coverage` and `duration` for comparison
+plots.
+
+### Agent-Friendly Inspection
+
+```python
+data = mrdp.SimulationLogAdapter().load('sim/data.json')
+summary = mrdp.inspect_data(data)
+components = mrdp.suggest_components(data)
+
+print(summary['robot_ids'])
+mrdp.StaticGlobalPlotDrawer(
+    files=['sim/data.json'],
+    components=components,
+    adapter=mrdp.SimulationLogAdapter(),
+).draw(list(components), save=True)
 ```
 
 ### Interactive Menu
@@ -107,12 +138,13 @@ pip install -e ".[dev]"    # development: pytest, ruff
 ## Testing
 
 ```bash
-pytest tests/               # 145 tests
+pytest tests/               # 168 tests
 pytest tests/ -v             # verbose
 pytest tests/ -k "adapter"   # filter by name
 ```
 
-Test structure: `conftest.py` provides shared fixtures (sample_data, interpreter, components_config). Each `test_*.py` covers one module.
+Test structure: `conftest.py` provides shared fixtures. Each `test_*.py`
+covers one module.
 
 ## License
 

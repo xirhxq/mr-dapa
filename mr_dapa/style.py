@@ -1,6 +1,7 @@
 """Style configuration for plot appearance."""
 
 from dataclasses import dataclass, field
+from typing import Optional
 
 
 @dataclass
@@ -18,6 +19,7 @@ class StyleConfig:
         format: Export format ('png', 'svg', 'pdf').
         background: Background color ('white' or color name).
         tight_layout: Whether to use tight layout.
+        bbox_inches: Matplotlib bbox_inches value for saved figures.
     """
 
     figsize: tuple = (16, 9)
@@ -36,6 +38,7 @@ class StyleConfig:
     background: str = 'white'
 
     format: str = 'png'
+    bbox_inches: Optional[str] = 'tight'
 
 
 PALETTES = {

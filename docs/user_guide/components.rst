@@ -18,9 +18,12 @@ Time-series line plots for tracking values over time.
        'title': 'X Position',
        'class': 'LinesComponent',
        'keys': ['x'],
+       'xlabel': 'Time (s)',
+       'ylabel': 'X Position (m)',
        'fill': True,           # Fill between line and zero
        'bounds': [-1, 0, 1],   # Horizontal reference lines
-       'show_zero_line': True  # y=0 reference line
+       'show_zero_line': True, # y=0 reference line
+       'show_legend': True     # Set False for dense diagnostic plots
    }
 
 MapComponent
@@ -53,7 +56,7 @@ Scatter/phase plots showing relationships between two values.
    }
 
 FillComponent
-~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 Filled area plots for showing uncertainty ranges or value spans.
 
@@ -64,6 +67,44 @@ Filled area plots for showing uncertainty ranges or value spans.
        'class': 'FillComponent',
        'keys': ['x', 'y']
    }
+
+SearchHeatmapComponent
+~~~~~~~~~~~~~~~~~~~~~~
+
+First-search-time grids from event series such as ``search_cell_x``,
+``search_cell_y``, and ``search_cell_time``. ``SimulationLogAdapter`` creates
+these series when frame logs contain grid ``update`` cells.
+
+.. code-block:: python
+
+   'search_heatmap': {
+       'title': 'First Search Time',
+       'class': 'SearchHeatmapComponent',
+       'grid_shape': (100, 100),
+       'limits': {'x': [-1500, 1500], 'y': [-1500, 1500]}
+   }
+
+PairDistanceComponent
+~~~~~~~~~~~~~~~~~~~~~
+
+Inter-robot distance plots for formation, safety, and communication-range
+diagnostics. It reads ``x`` and ``y`` from canonical robot series, supports
+asynchronous robot timestamps through interpolation, and can show reference
+distance bounds.
+
+.. code-block:: python
+
+   'pair_distance': {
+       'title': 'Formation Distance',
+       'class': 'PairDistanceComponent',
+       'pairs': [(1, 2), (2, 3)],
+       'min_distance': 10.0,
+       'max_distance': 850.0,
+       'show_uncertainty': True
+   }
+
+Use ``pairs: 'all'`` for a quick diagnostic over every robot pair in the
+filtered interpreter view.
 
 Custom Components
 -----------------

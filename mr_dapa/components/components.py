@@ -5,3 +5,5 @@ from .scatter import ScatterComponent as ScatterComponent
 from .fill import FillComponent as FillComponent
 from .heatmap import HeatmapComponent as HeatmapComponent
 from .map3d import Map3DComponent as Map3DComponent
+from .search_heatmap import SearchHeatmapComponent as SearchHeatmapComponent
+from .pair_distance import PairDistanceComponent as PairDistanceComponent

@@ -9,11 +9,13 @@ Main exports:
     Drawers: StaticGlobalPlotDrawer, StaticSeparatePlotDrawer,
         StaticGroupPlotDrawer, AnimationDrawer
     Components: LinesComponent, MapComponent, ScatterComponent,
-        FillComponent, HeatmapComponent, Map3DComponent, BaseComponent
+        FillComponent, HeatmapComponent, Map3DComponent, SearchHeatmapComponent,
+        PairDistanceComponent, BaseComponent
     Adapters: DataAdapter, JSONAdapter, CSVAdapter, MultiFileAdapter,
-        NumPyAdapter
+        NumPyAdapter, SimulationLogAdapter, ParametricStudyAdapter
     Registry: register_component, unregister_component,
         get_component_class, list_components
+    Inspection: inspect_data, suggest_components
     Style: StyleConfig, get_style, get_palette
     Menu: run_interactive_session (requires [menu] extra)
 """
@@ -32,6 +34,8 @@ from .components.components import (
     FillComponent,
     HeatmapComponent,
     Map3DComponent,
+    SearchHeatmapComponent,
+    PairDistanceComponent,
 )
 
 from .adapters import (
@@ -40,6 +44,8 @@ from .adapters import (
     MultiFileAdapter,
     CSVAdapter,
     NumPyAdapter,
+    SimulationLogAdapter,
+    ParametricStudyAdapter,
 )
 
 from .registry import (
@@ -51,6 +57,8 @@ from .registry import (
 
 from .components.base import BaseComponent
 
+from .inspection import inspect_data, suggest_components
+
 from .style import StyleConfig, get_style, get_palette
 
 try:
@@ -59,7 +67,7 @@ try:
 except ImportError:
     _menu_available = False
 
-__version__ = '0.7.0'
+__version__ = '1.0.0'
 
 __all__ = [
     'StaticGlobalPlotDrawer',
@@ -72,16 +80,22 @@ __all__ = [
     'FillComponent',
     'HeatmapComponent',
     'Map3DComponent',
+    'SearchHeatmapComponent',
+    'PairDistanceComponent',
     'BaseComponent',
     'DataAdapter',
     'JSONAdapter',
     'MultiFileAdapter',
     'CSVAdapter',
     'NumPyAdapter',
+    'SimulationLogAdapter',
+    'ParametricStudyAdapter',
     'register_component',
     'unregister_component',
     'get_component_class',
     'list_components',
+    'inspect_data',
+    'suggest_components',
     'StyleConfig',
     'get_style',
     'get_palette',

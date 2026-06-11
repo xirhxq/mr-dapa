@@ -6,16 +6,18 @@ The mr-dapa package includes several examples demonstrating different features.
 .. toctree::
    :maxdepth: 2
 
-   examples/minimal
-   examples/csv_adapter
-   examples/numpy_adapter
-   examples/multi_file
-   examples/all_components
-   examples/all_draw_modes
-   examples/publication_style
-   examples/chain_api
-   examples/custom_component
-   examples/with_menu
+   minimal
+   csv_adapter
+   numpy_adapter
+   simulation_log_adapter
+   parametric_study_adapter
+   multi_file
+   all_components
+   all_draw_modes
+   publication_style
+   chain_api
+   custom_component
+   with_menu
 
 Example Overview
 ----------------
@@ -25,6 +27,10 @@ Example Overview
 **csv_adapter** - Loading data from CSV files.
 
 **numpy_adapter** - Loading data from NumPy arrays.
+
+**simulation_log_adapter** - Loading frame-based multi-robot simulator logs.
+
+**parametric_study_adapter** - Plotting metrics from parameter sweep summaries.
 
 **multi_file** - Merging data from multiple JSON files.
 

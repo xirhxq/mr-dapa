@@ -49,6 +49,7 @@ class BaseDrawer:
 
         self.interpreter = BaseInterpreter(self.data) if interpreter is None else interpreter(self.data)
         self.style = StyleConfig()
+        self._style_explicitly_set = False
 
         plt.switch_backend('agg')
 
@@ -62,6 +63,7 @@ class BaseDrawer:
             self, for method chaining.
         """
         self.style = get_style(name)
+        self._style_explicitly_set = True
         return self
 
     def set_palette(self, name: str):
@@ -87,7 +89,7 @@ class BaseDrawer:
             cls.validate_config(name, config)
 
     def decide_sole_figsize(self, plot_list):
-        if len(plot_list) > 1:
+        if len(plot_list) > 1 or self._style_explicitly_set:
             return
         cls = get_component_class(self.REGISTERED_COMPONENTS[plot_list[0]]['class'])
         self.style.figsize = cls.FIGSIZE
@@ -179,7 +181,7 @@ class BaseDrawer:
             if grouped:
                 filename += '-grouped'
             filename += ext
-        fig.savefig(filename, dpi=self.style.dpi, bbox_inches='tight', format=self.style.format)
+        fig.savefig(filename, dpi=self.style.dpi, bbox_inches=self.style.bbox_inches, format=self.style.format)
         return filename
 
     def _save_animation(self, ani, plot_list, id_list, time_ratio, fps, path=None):

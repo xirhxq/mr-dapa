@@ -16,31 +16,31 @@ components = {
 print("Creating paper-style plot (PNG, high DPI)...")
 drawer1 = mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components)
 drawer1.set_style('paper')
-fig1 = drawer1.draw(['x', 'y', 'map'], save=True, path='paper_style.png')
+drawer1.draw(['x', 'y', 'map'], save=True, path='paper_style.png')
 
 # Presentation preset: large figure, bold fonts
 print("Creating presentation-style plot...")
 drawer2 = mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components)
 drawer2.set_style('presentation').set_palette('vivid')
-fig2 = drawer2.draw(['x', 'y', 'map'], save=True, path='presentation_style.png')
+drawer2.draw(['x', 'y', 'map'], save=True, path='presentation_style.png')
 
 # Dark theme
 print("Creating dark theme plot...")
 drawer3 = mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components)
 drawer3.set_style('dark')
-fig3 = drawer3.draw(['x', 'y', 'map'], save=True, path='dark_theme.png')
+drawer3.draw(['x', 'y', 'map'], save=True, path='dark_theme.png')
 
 # Colorblind-friendly palette
 print("Creating colorblind-friendly plot...")
 drawer4 = mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components)
 drawer4.set_palette('colorblind')
-fig4 = drawer4.draw(['x', 'y', 'map'], save=True, path='colorblind_palette.png')
+drawer4.draw(['x', 'y', 'map'], save=True, path='colorblind_palette.png')
 
 # SVG export for vector graphics
 print("Creating SVG export...")
 drawer5 = mrdp.StaticGlobalPlotDrawer(files=['data.json'], components=components)
 drawer5.style.format = 'svg'
-fig5 = drawer5.draw(['x', 'y', 'map'], save=True, path='vector_output.svg')
+drawer5.draw(['x', 'y', 'map'], save=True, path='vector_output.svg')
 
 print("\nPublication style example complete!")
 print("Generated: paper_style.png, presentation_style.png, dark_theme.png, colorblind_palette.png, vector_output.svg")

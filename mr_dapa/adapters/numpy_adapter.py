@@ -7,12 +7,13 @@ class NumPyAdapter:
     """Adapter for converting NumPy arrays to canonical format.
 
     Expects a dict mapping robot IDs to data arrays. Each robot's data
-    should have 'timestamps' and 'values' keys.
+    should have 'timestamp' and 'values' keys.
 
     Example::
+
         adapter = NumPyAdapter()
         data = adapter.load({
-            1: {'timestamps': np.array([0, 1]), 'values': {'x': np.array([1, 2])}}
+            1: {'timestamp': np.array([0, 1]), 'values': {'x': np.array([1, 2])}}
         })
     """
 

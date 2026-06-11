@@ -10,6 +10,7 @@ def _registered_components():
         'x': {'title': 'X', 'class': 'LinesComponent', 'keys': ['x']},
         'y': {'title': 'Y', 'class': 'LinesComponent', 'keys': ['y']},
         'map': {'title': 'Map', 'class': 'MapComponent', 'limits': {'x': [-2, 2], 'y': [-2, 2]}},
+        'phase': {'title': 'Phase', 'class': 'ScatterComponent', 'x_key': 'x', 'y_key': 'y'},
     }
 
 
@@ -86,6 +87,14 @@ class TestGridLayoutMixed:
         has_lines = any(c.get('class') == 'LinesComponent' for c in comps)
         assert has_map
         assert has_lines
+        plt.close(fig)
+
+    def test_mixed_layout_keeps_multiple_global_components_separate(self):
+        fig = plt.figure()
+        layout = GridLayout(fig, ['map', 'phase', 'x'], _registered_components(), expand=False, id_list=[1, 2])
+        grids = [str(c['grid']) for c in layout.layout_config['components']]
+        assert len(grids) == 3
+        assert len(set(grids)) == 3
         plt.close(fig)
 
     def test_allocate_axes_returns_config(self):
