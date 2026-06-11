@@ -6,7 +6,7 @@ timestamped data and need to quickly generate static plots and animations.
 ## Quick Start
 
 ```bash
-pip install -e .
+pip install mr-dapa
 python examples/minimal/generate_data.py
 python examples/minimal/main.py
 ```

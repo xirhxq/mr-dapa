@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use mr-dapa in academic work, please cite it using this metadata."
+title: mr-dapa
+authors:
+  - family-names: Yang
+    given-names: Siyuan
+    orcid: https://orcid.org/0009-0001-7980-4524
+version: 1.0.1
+date-released: 2026-06-11
+repository-code: https://github.com/xirhxq/mr-dapa
+license: MIT
+keywords:
+  - multi-robot systems
+  - data visualization
+  - matplotlib
+  - animation
+  - robotics
+abstract: "mr-dapa provides composable plotting and animation helpers for multi-robot and multi-agent time-series data."

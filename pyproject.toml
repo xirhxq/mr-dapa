@@ -1,18 +1,52 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mr-dapa"
-version = "1.0.0"
+version = "1.0.1"
 description = "Multi-Robot Data Animation & Plotting Assistance"
 readme = "README.md"
 requires-python = ">=3.9"
+authors = [{ name = "xirhxq", email = "xirhxq@gmail.com" }]
+maintainers = [{ name = "xirhxq", email = "xirhxq@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = [
+    "animation",
+    "data-visualization",
+    "matplotlib",
+    "multi-agent-systems",
+    "multi-robot",
+    "plotting",
+    "robotics",
+    "scientific-computing",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "numpy",
     "matplotlib",
     "tqdm",
 ]
+
+[project.urls]
+Homepage = "https://github.com/xirhxq/mr-dapa"
+Repository = "https://github.com/xirhxq/mr-dapa"
+Issues = "https://github.com/xirhxq/mr-dapa/issues"
+Changelog = "https://github.com/xirhxq/mr-dapa/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "ruff"]

@@ -10,6 +10,22 @@ convention: a public version should represent a maintainable, documented, and
 agent-integrable state that the maintainers are comfortable presenting as a
 coherent capability milestone.
 
+## [Unreleased]
+
+## [1.0.1] - 2026-06-11
+
+### Added
+
+- `CITATION.cff` with academic citation metadata.
+- Package metadata tests for distribution fields, documentation version sync, and citation metadata.
+
+### Changed
+
+- Expanded PyPI metadata with author, maintainer, keywords, classifiers, project links, and SPDX license metadata.
+- Documentation now reads the package version from `mr_dapa.__version__`.
+- README quick start now prioritizes the normal `pip install mr-dapa` path.
+- CI now builds the package, runs `twine check`, and smoke-tests the wheel on pull requests.
+
 ## [1.0.0] - 2026-06-11
 
 ### Added

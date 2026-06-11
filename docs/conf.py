@@ -7,13 +7,15 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
+import mr_dapa
+
 # -- Project information --------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'mr-dapa'
 copyright = '2025, mr-dapa contributors'
 author = 'mr-dapa contributors'
-release = '0.5.0'
+release = mr_dapa.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
