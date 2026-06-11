@@ -34,9 +34,9 @@ class LinesComponent(BaseComponent):
 
     def _initialize(self):
         self.ax.set_title(self.title)
-        self.ax.set_xlabel("Time (s)")
+        self.ax.set_xlabel(self.kwargs.get('xlabel', "Time (s)"))
         ylabel = "Values" + ((" (" + self.units[0] + ")") if self.single_unit else "")
-        self.ax.set_ylabel(ylabel)
+        self.ax.set_ylabel(self.kwargs.get('ylabel', ylabel))
 
         if 'bounds' in self.kwargs:
             for b in self.kwargs['bounds']:
@@ -117,7 +117,7 @@ class LinesComponent(BaseComponent):
                         alpha=0.7
                     )
 
-        if len(self.lines) > 1:
+        if len(self.lines) > 1 and self.kwargs.get('show_legend', True):
             self.ax.legend(loc='best')
 
         if self.mode == "animation":
@@ -165,7 +165,7 @@ class LinesComponent(BaseComponent):
                 self.value_texts[label].set_text(f"{line.get_ydata()[index]:.4f}")
             artists.append(self.value_texts[label])
 
-        if len(self.lines) > 1:
+        if len(self.lines) > 1 and self.kwargs.get('show_legend', True):
             self.ax.legend(loc='best')
 
         return artists
