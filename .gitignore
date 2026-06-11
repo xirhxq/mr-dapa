@@ -211,9 +211,15 @@ __marimo__/
 
 # Example data files and output (users generate them locally)
 examples/*/data.json
+examples/*/summary.json
 examples/*/data/*.json
 examples/*/data-plots/
-
+examples/*/*.svg
+examples/*/*.pdf
 
 !.github/
 .*
+
+# Local agent context
+AGENTS.md
+.agent-context/
